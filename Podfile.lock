@@ -1,0 +1,16 @@
+PODS:
+  - Runtime (0.1.0)
+
+DEPENDENCIES:
+  - Runtime (from `../SwiftRuntime`)
+
+EXTERNAL SOURCES:
+  Runtime:
+    :path: "../SwiftRuntime"
+
+SPEC CHECKSUMS:
+  Runtime: 35190f0f9cb525cfd24b3eae76e6ea9814d81bd8
+
+PODFILE CHECKSUM: 887a3b09c34bf49154d4fe324bf7da4ac62fc050
+
+COCOAPODS: 1.2.1

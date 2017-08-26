@@ -12,6 +12,14 @@ import Runtime
 
 public final class Converter {
     
+    public static func convert<T>(_ object: Any) throws -> T {
+        guard let result = try convert(object, to: T.self) as? T else {
+            throw ConverterErrors.couldNotCastValue
+        }
+        
+        return result
+    }
+    
     public static func convert(_ object: Any, to destinationType: Any.Type) throws -> Any? {
         
         guard let conversion = Conversion.conversions[String(describing: type(of: object)) + String(describing: destinationType)]

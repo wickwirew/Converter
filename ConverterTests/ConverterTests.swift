@@ -23,8 +23,8 @@ class ConverterTests: XCTestCase {
     func testConversion() {
         try? Conversion.create(from: Engine.self, to: EngineMinimal.self)
         try? Conversion.create(from: Car.self, to: CarMinimal.self)
-        let s2k = Car(make: "Honda", model: "S2000", engine: Engine(horsePower: 245, serialNumber: "34254352"))
-        let mini = try? Converter.convert(s2k, to: CarMinimal.self) as! CarMinimal
+        let s2k = Car(id: 3, make: "Honda", model: "S2000", engine: Engine(horsePower: 245, serialNumber: "34254352"))
+        let mini: CarMinimal = try! Converter.convert(s2k)
         print(mini)
     }
     
@@ -44,11 +44,13 @@ fileprivate struct PersonMinimal {
 
 
 fileprivate struct Car: DefaultConstructor {
+    var id: Int = 0
     var make: String = ""
     var model: String = ""
     var engine: Engine = Engine()
     init() {}
-    init(make: String, model: String, engine: Engine) {
+    init(id: Int, make: String, model: String, engine: Engine) {
+        self.id = id
         self.make = make
         self.model = model
         self.engine = engine

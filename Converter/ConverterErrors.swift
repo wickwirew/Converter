@@ -13,4 +13,5 @@ import Foundation
 public enum ConverterErrors: Error {
     case errorReadingProperties
     case conversionNotFound
+    case couldNotCastValue
 }

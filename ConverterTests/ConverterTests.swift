@@ -25,7 +25,10 @@ class ConverterTests: XCTestCase {
         try? Conversion.create(from: Car.self, to: CarMinimal.self)
         let s2k = Car(id: 3, make: "Honda", model: "S2000", engine: Engine(horsePower: 245, serialNumber: "34254352"))
         let mini: CarMinimal = try! Converter.convert(s2k)
-        print(mini)
+        
+        XCTAssert(mini.make == "Honda")
+        XCTAssert(mini.model == "S2000")
+        XCTAssert(mini.engine.horsePower == 245)
     }
     
 }

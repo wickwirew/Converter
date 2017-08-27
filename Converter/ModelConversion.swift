@@ -10,7 +10,7 @@ import Foundation
 
 
 
-struct ModelConversion {
+public class ModelConversion {
     
     /**
      All of the property conversions required for the model.
@@ -27,6 +27,14 @@ struct ModelConversion {
      Desintation model type
      */
     let destinationType: Any.Type
+    
+    
+    public init(conversions: [String : PropertyConversion], sourceType: Any.Type, destinationType: Any.Type) {
+        self.conversions = conversions
+        self.sourceType = sourceType
+        self.destinationType = destinationType
+    }
+    
     
     /**
      Gets the key for the conversion dictionary

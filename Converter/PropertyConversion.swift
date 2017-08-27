@@ -11,7 +11,7 @@ import Runtime
 
 
 
-struct PropertyConversion {
+public struct PropertyConversion {
 
     /**
      The property in the source type

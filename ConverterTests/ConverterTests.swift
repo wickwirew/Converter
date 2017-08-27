@@ -47,7 +47,7 @@ class ConverterTests: XCTestCase {
     }
     
     func testConversionCustomMapping() {
-        try? Conversion.create(from: Person.self, to: Teacher.self)
+        try! Conversion.create(from: Person.self, to: Teacher.self)
             .for(property: "name", do: {s,d in d.name = "\(s.firstName) \(s.lastName)"})
         
         let person = Person(id: 7, firstName: "Wes", lastName: "Wickwire", age: 25)

@@ -39,8 +39,10 @@ public class ModelConversion<TSource, TDestination>: ModelConversionProtocol {
         self.conversions = conversions
     }
     
-    public func `for`(property: String, do conversion: @escaping (inout TSource, inout TDestination) -> Void) {
+    @discardableResult
+    public func `for`(property: String, do conversion: @escaping (inout TSource, inout TDestination) -> Void) -> ModelConversion<TSource, TDestination>{
         conversions[property] = CustomPropertyConversion(conversion: conversion)
+        return self
     }
     
     /**

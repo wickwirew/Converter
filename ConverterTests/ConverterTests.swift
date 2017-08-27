@@ -1,28 +1,43 @@
+// MIT License
 //
-//  ConverterTests.swift
-//  ConverterTests
+// Copyright (c) 2017 Wesley Wickwire
 //
-//  Created by Wes on 8/24/17.
-//  Copyright © 2017 weswickwire. All rights reserved.
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
 //
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
 
 import XCTest
 import Runtime
 @testable import Converter
 
+
 class ConverterTests: XCTestCase {
     
     func testCreateConversion() {
-        try? Conversion.create(from: Person.self, to: PersonMinimal.self)
+        try! Conversion.create(from: Person.self, to: PersonMinimal.self)
         let wes = Person(id: 3, firstName: "Wes", lastName: "Wickwire", age: 25)
-        let mini = try? Converter.convert(wes, to: PersonMinimal.self)
+        let mini = try! Converter.convert(wes, to: PersonMinimal.self)
         print(mini)
     }
     
     
     func testConversion() {
-        try? Conversion.create(from: Engine.self, to: EngineMinimal.self)
-        try? Conversion.create(from: Car.self, to: CarMinimal.self)
+        try! Conversion.create(from: Engine.self, to: EngineMinimal.self)
+        try! Conversion.create(from: Car.self, to: CarMinimal.self)
         let s2k = Car(id: 3, make: "Honda", model: "S2000", engine: Engine(horsePower: 245, serialNumber: "34254352"))
         let mini: CarMinimal = try! Converter.convert(s2k)
         
@@ -61,35 +76,22 @@ fileprivate struct Teacher {
     var age: Int
 }
 
-fileprivate struct Car: DefaultConstructor {
-    var id: Int = 0
-    var make: String = ""
-    var model: String = ""
-    var engine: Engine = Engine()
-    init() {}
-    init(id: Int, make: String, model: String, engine: Engine) {
-        self.id = id
-        self.make = make
-        self.model = model
-        self.engine = engine
-    }
+fileprivate struct Car {
+    var id: Int
+    var make: String
+    var model: String
+    var engine: Engine
 }
 
-fileprivate struct CarMinimal: DefaultConstructor {
-    var make: String = ""
-    var model: String = ""
-    var engine: EngineMinimal = EngineMinimal()
-    init() {}
+fileprivate struct CarMinimal {
+    var make: String
+    var model: String
+    var engine: EngineMinimal
 }
 
-fileprivate struct Engine: DefaultConstructor {
-    var horsePower: Int = 0
-    var serialNumber: String = ""
-    init() {}
-    init(horsePower: Int, serialNumber: String) {
-        self.horsePower = horsePower
-        self.serialNumber = serialNumber
-    }
+fileprivate struct Engine {
+    var horsePower: Int
+    var serialNumber: String
 }
 
 fileprivate struct EngineMinimal {

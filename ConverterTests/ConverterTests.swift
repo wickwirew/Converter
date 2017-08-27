@@ -31,6 +31,17 @@ class ConverterTests: XCTestCase {
         XCTAssert(mini.engine.horsePower == 245)
     }
     
+    func testConversionCustomMapping() {
+        try? Conversion.create(from: Person.self, to: Teacher.self)
+            .for(property: "name", do: {s,d in d.name = "\(s.firstName) \(s.lastName)"})
+        
+        let person = Person(id: 7, firstName: "Wes", lastName: "Wickwire", age: 25)
+        
+        let teacher: Teacher = try! Converter.convert(person)
+        
+        XCTAssert(teacher.name == "Wes Wickwire")
+        XCTAssert(teacher.age == 25)
+    }
 }
 
 fileprivate struct Person {
@@ -45,6 +56,10 @@ fileprivate struct PersonMinimal {
     var lastName: String = ""
 }
 
+fileprivate struct Teacher {
+    var name: String
+    var age: Int
+}
 
 fileprivate struct Car: DefaultConstructor {
     var id: Int = 0

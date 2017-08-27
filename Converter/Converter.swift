@@ -31,7 +31,7 @@ public final class Converter {
         
         for value in conversion.conversions {
             let c = value.value
-            try c.conversion(c.sourceProperty, c.destinationProperty, &object, &result)
+            try c.runConversion(source: &object, destination: &result)
         }
         
         return result

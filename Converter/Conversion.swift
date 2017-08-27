@@ -17,7 +17,8 @@ public final class Conversion {
     /**
      Creates a conversion from the Source model to the Destination model
      */
-    public static func create<TSource, TDestination>(from source: TSource.Type, to destination: TDestination.Type) throws {
+    @discardableResult
+    public static func create<TSource, TDestination>(from source: TSource.Type, to destination: TDestination.Type) throws -> ModelConversion<TSource, TDestination> {
         
         let sourceProperties = try Reflection.getProperties(of: source)
         let destinationProperties = try Reflection.getProperties(of: destination)
@@ -29,7 +30,7 @@ public final class Conversion {
                 
                 let typesEqual = sourceProperty.type == destinationProperty.type
                 
-                let conversion = PropertyConversion(sourceProperty: sourceProperty, destinationProperty: destinationProperty) { sourceProperty, destinationProperty, source, destination in
+                let conversion = PropertyConversion() { source, destination in
                     
                     if typesEqual {
                         let value = try sourceProperty.get(from: &source)
@@ -48,6 +49,8 @@ public final class Conversion {
         let conversion = ModelConversion<TSource, TDestination>(conversions: conversions)
         
         Conversion.conversions[conversion.getKey()] = conversion
+        
+        return conversion
     }
     
     /**

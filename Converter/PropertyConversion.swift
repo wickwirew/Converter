@@ -10,23 +10,33 @@ import Foundation
 import Runtime
 
 
+public protocol PropertyConversionProtocol {
+    func runConversion(source: inout Any, destination: inout Any) throws
+}
 
-public struct PropertyConversion {
+public struct PropertyConversion: PropertyConversionProtocol {
 
-    /**
-     The property in the source type
-     */
-    let sourceProperty: PropertyInfo
-    
-    /**
-     The property in the destination type
-     */
-    let destinationProperty: PropertyInfo
-    
     /**
      The closure that is responsible for setting the value on the destination
-     - Parameters: sourceProperty, destinationProperty, source, destination
+     - Parameters: source, destination
      */
-    let conversion: (PropertyInfo, PropertyInfo, inout Any, inout Any) throws -> Void
+    let conversion: (inout Any, inout Any) throws -> Void
     
+    public func runConversion(source: inout Any, destination: inout Any) throws {
+        try conversion(&source, &destination)
+    }
+}
+
+
+
+public struct CustomPropertyConversion<TSource, TDestination>: PropertyConversionProtocol {
+    
+    let conversion: (inout TSource, inout TDestination) throws -> Void
+    
+    public func runConversion(source: inout Any, destination: inout Any) throws {
+        guard var sourceTyped = source as? TSource else { return }
+        guard var destinationTyped = destination as? TDestination else { return }
+        try conversion(&sourceTyped, &destinationTyped)
+        destination = destinationTyped
+    }
 }

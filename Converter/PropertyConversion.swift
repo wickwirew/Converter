@@ -27,6 +27,6 @@ struct PropertyConversion {
      The closure that is responsible for setting the value on the destination
      - Parameters: sourceProperty, destinationProperty, source, destination
      */
-    let conversion: (PropertyInfo, PropertyInfo, inout Any, inout Any) -> Void
+    let conversion: (PropertyInfo, PropertyInfo, inout Any, inout Any) throws -> Void
     
 }

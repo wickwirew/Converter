@@ -25,13 +25,13 @@ public final class Converter {
         guard let conversion = Conversion.conversions[String(describing: type(of: object)) + String(describing: destinationType)]
             else { throw ConverterErrors.conversionNotFound }
         
-        guard var result = Construct.build(type: destinationType) else { return nil }
+        var result = try Construct.build(type: destinationType)
         
         var object = object
         
         for value in conversion.conversions {
             let c = value.value
-            c.conversion(c.sourceProperty, c.destinationProperty, &object, &result)
+            try c.conversion(c.sourceProperty, c.destinationProperty, &object, &result)
         }
         
         return result

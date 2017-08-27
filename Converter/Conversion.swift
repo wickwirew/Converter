@@ -19,8 +19,8 @@ public final class Conversion {
      */
     public static func create(from source: Any.Type, to destination: Any.Type) throws {
         
-        guard let sourceProperties = Reflection.getProperties(of: source) else { throw ConverterErrors.errorReadingProperties }
-        guard let destinationProperties = Reflection.getProperties(of: destination) else { throw ConverterErrors.errorReadingProperties }
+        let sourceProperties = try Reflection.getProperties(of: source)
+        let destinationProperties = try Reflection.getProperties(of: destination)
         
         var conversions = [String : PropertyConversion]()
         
@@ -32,12 +32,12 @@ public final class Conversion {
                 let conversion = PropertyConversion(sourceProperty: sourceProperty, destinationProperty: destinationProperty) { sourceProperty, destinationProperty, source, destination in
                     
                     if typesEqual {
-                        guard let value = sourceProperty.get(from: &source) else { return }
-                        destinationProperty.set(value: value, on: &destination)
+                        let value = try sourceProperty.get(from: &source)
+                        try destinationProperty.set(value: value, on: &destination)
                     } else {
-                        guard let value = sourceProperty.get(from: &source) else { return }
+                        let value = try sourceProperty.get(from: &source)
                         guard let converted = try! Converter.convert(value, to: destinationProperty.type) else { return }
-                        destinationProperty.set(value: converted, on: &destination)
+                        try destinationProperty.set(value: converted, on: &destination)
                     }
                 }
                 

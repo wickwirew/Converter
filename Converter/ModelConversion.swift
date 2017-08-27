@@ -8,31 +8,21 @@
 
 import Foundation
 
+public protocol ModelConversionProtocol {
+    var conversions: [String : PropertyConversion] { get set }
+}
 
-
-public class ModelConversion {
+public class ModelConversion<TSource, TDestination>: ModelConversionProtocol {
     
     /**
      All of the property conversions required for the model.
      The key is the property name.
      */
-    let conversions: [String : PropertyConversion]
-    
-    /**
-     Source model type
-     */
-    let sourceType: Any.Type
-    
-    /**
-     Desintation model type
-     */
-    let destinationType: Any.Type
+    public var conversions: [String : PropertyConversion]
     
     
-    public init(conversions: [String : PropertyConversion], sourceType: Any.Type, destinationType: Any.Type) {
+    public init(conversions: [String : PropertyConversion]) {
         self.conversions = conversions
-        self.sourceType = sourceType
-        self.destinationType = destinationType
     }
     
     
@@ -40,6 +30,6 @@ public class ModelConversion {
      Gets the key for the conversion dictionary
      */
     func getKey() -> String {
-        return String(describing: sourceType) + String(describing: destinationType)
+        return String(describing: TSource.self) + String(describing: TDestination.self)
     }
 }

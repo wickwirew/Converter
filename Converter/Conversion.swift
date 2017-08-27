@@ -12,12 +12,12 @@ import Runtime
 
 public final class Conversion {
     
-    internal static var conversions = [String : ModelConversion]()
+    internal static var conversions = [String : ModelConversionProtocol]()
     
     /**
      Creates a conversion from the Source model to the Destination model
      */
-    public static func create(from source: Any.Type, to destination: Any.Type) throws {
+    public static func create<TSource, TDestination>(from source: TSource.Type, to destination: TDestination.Type) throws {
         
         let sourceProperties = try Reflection.getProperties(of: source)
         let destinationProperties = try Reflection.getProperties(of: destination)
@@ -45,7 +45,7 @@ public final class Conversion {
             }
         }
         
-        let conversion = ModelConversion(conversions: conversions, sourceType: source, destinationType: destination)
+        let conversion = ModelConversion<TSource, TDestination>(conversions: conversions)
         
         Conversion.conversions[conversion.getKey()] = conversion
     }

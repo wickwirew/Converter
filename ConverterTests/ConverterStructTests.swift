@@ -25,9 +25,9 @@ import Runtime
 @testable import Converter
 
 
-class ConverterTests: XCTestCase {
+class ConverterStructTests: XCTestCase {
     
-    func testCreateConversion() {
+    func testConversion() {
         try! Conversion.create(from: Person.self, to: PersonMinimal.self)
         let wes = Person(id: 3, firstName: "Wes", lastName: "Wickwire", age: 25)
         let mini = try! Converter.convert(wes, to: PersonMinimal.self)
@@ -35,7 +35,7 @@ class ConverterTests: XCTestCase {
     }
     
     
-    func testConversion() {
+    func testConversion_Nested() {
         try! Conversion.create(from: Engine.self, to: EngineMinimal.self)
         try! Conversion.create(from: Car.self, to: CarMinimal.self)
         let s2k = Car(id: 3, make: "Honda", model: "S2000", engine: Engine(horsePower: 245, serialNumber: "34254352"))

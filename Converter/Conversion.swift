@@ -51,7 +51,7 @@ public final class Conversion {
                         try destinationProperty.set(value: value, on: &destination)
                     } else {
                         let value = try sourceProperty.get(from: source)
-                        let converted = try! Converter.convert(value, to: destinationProperty.type)
+                        let converted = try Converter.convert(value, to: destinationProperty.type)
                         try destinationProperty.set(value: converted, on: &destination)
                     }
                 }

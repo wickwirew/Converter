@@ -34,7 +34,7 @@ public final class Converter {
         return result
     }
     
-    public static func convert(_ object: Any, to destinationType: Any.Type) throws -> Any? {
+    public static func convert(_ object: Any, to destinationType: Any.Type) throws -> Any {
         
         guard let conversion = Conversion.conversions[String(describing: type(of: object)) + String(describing: destinationType)]
             else { throw ConverterErrors.conversionNotFound }

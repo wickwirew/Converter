@@ -52,7 +52,7 @@ public final class Conversion {
                     } else {
                         let value = try sourceProperty.get(from: source)
                         print(value)
-                        guard let converted = try! Converter.convert(value, to: destinationProperty.type) else { return }
+                        let converted = try! Converter.convert(value, to: destinationProperty.type)
                         try destinationProperty.set(value: converted, on: &destination)
                     }
                 }

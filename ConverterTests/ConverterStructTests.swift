@@ -31,7 +31,6 @@ class ConverterStructTests: XCTestCase {
         try! Conversion.create(from: Person.self, to: PersonMinimal.self)
         let wes = Person(id: 3, firstName: "Wes", lastName: "Wickwire", age: 25)
         let mini = try! Converter.convert(wes, to: PersonMinimal.self)
-        print(mini)
     }
     
     

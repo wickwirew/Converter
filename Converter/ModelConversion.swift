@@ -45,6 +45,12 @@ public class ModelConversion<TSource, TDestination>: ModelConversionProtocol {
         return self
     }
     
+    @discardableResult
+    public func ignore(property: String) -> ModelConversion<TSource, TDestination>{
+        conversions.removeValue(forKey: property)
+        return self
+    }
+    
     /**
      Gets the key for the conversion dictionary
      */

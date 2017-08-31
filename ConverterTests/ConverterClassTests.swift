@@ -30,21 +30,85 @@ class ConverterClassTests: XCTestCase {
     func testConversion() {
         try! Conversion.create(from: Person.self, to: PersonMinimal.self)
         let wes = Person(id: 3, firstName: "Wes", lastName: "Wickwire", age: 25)
-        let mini = try! Converter.convert(wes, to: PersonMinimal.self)
-        print(mini)
+        let mini: PersonMinimal = try! Converter.convert(wes)
+        
+        XCTAssert(mini.firstName == "Wes")
+        XCTAssert(mini.lastName == "Wickwire")
     }
     
+    func testConversion_DesintationUntyped() {
+        try! Conversion.create(from: Person.self, to: PersonMinimal.self)
+        let wes = Person(id: 3, firstName: "Wes", lastName: "Wickwire", age: 25)
+        let mini = try! Converter.convert(wes, to: PersonMinimal.self)
+        
+        XCTAssert((mini as! PersonMinimal).firstName == "Wes")
+        XCTAssert((mini as! PersonMinimal).lastName == "Wickwire")
+    }
+    
+    func testConversion_SourceUntyped() {
+        try! Conversion.create(from: Person.self, to: PersonMinimal.self)
+        let wes: Any = Person(id: 3, firstName: "Wes", lastName: "Wickwire", age: 25)
+        let mini: PersonMinimal = try! Converter.convert(wes)
+        
+        XCTAssert(mini.firstName == "Wes")
+        XCTAssert(mini.lastName == "Wickwire")
+    }
+    
+    func testConversion_Untyped() {
+        try! Conversion.create(from: Person.self, to: PersonMinimal.self)
+        let wes: Any = Person(id: 3, firstName: "Wes", lastName: "Wickwire", age: 25)
+        let mini = try! Converter.convert(wes, to: PersonMinimal.self)
+        
+        XCTAssert((mini as! PersonMinimal).firstName == "Wes")
+        XCTAssert((mini as! PersonMinimal).lastName == "Wickwire")
+    }
     
     func testConversion_Nested() {
         try! Conversion.create(from: Engine.self, to: EngineMinimal.self)
         try! Conversion.create(from: Car.self, to: CarMinimal.self)
-            
+        
         let s2k = Car(id: 3, make: "Honda", model: "S2000", engine: Engine(horsePower: 245, serialNumber: "34254352"))
         let mini: CarMinimal = try! Converter.convert(s2k)
         
         XCTAssert(mini.make == "Honda")
         XCTAssert(mini.model == "S2000")
         XCTAssert(mini.engine.horsePower == 245)
+    }
+    
+    func testConversion_Nested_DestinationUntyped() {
+        try! Conversion.create(from: Engine.self, to: EngineMinimal.self)
+        try! Conversion.create(from: Car.self, to: CarMinimal.self)
+        
+        let s2k = Car(id: 3, make: "Honda", model: "S2000", engine: Engine(horsePower: 245, serialNumber: "34254352"))
+        let mini = try! Converter.convert(s2k, to: CarMinimal.self)
+        
+        XCTAssert((mini as! CarMinimal).make == "Honda")
+        XCTAssert((mini as! CarMinimal).model == "S2000")
+        XCTAssert((mini as! CarMinimal).engine.horsePower == 245)
+    }
+    
+    func testConversion_Nested_SourceUntyped() {
+        try! Conversion.create(from: Engine.self, to: EngineMinimal.self)
+        try! Conversion.create(from: Car.self, to: CarMinimal.self)
+        
+        let s2k: Any = Car(id: 3, make: "Honda", model: "S2000", engine: Engine(horsePower: 245, serialNumber: "34254352"))
+        let mini: CarMinimal = try! Converter.convert(s2k)
+        
+        XCTAssert(mini.make == "Honda")
+        XCTAssert(mini.model == "S2000")
+        XCTAssert(mini.engine.horsePower == 245)
+    }
+    
+    func testConversion_Nested_Untyped() {
+        try! Conversion.create(from: Engine.self, to: EngineMinimal.self)
+        try! Conversion.create(from: Car.self, to: CarMinimal.self)
+        
+        let s2k = Car(id: 3, make: "Honda", model: "S2000", engine: Engine(horsePower: 245, serialNumber: "34254352"))
+        let mini = try! Converter.convert(s2k, to: CarMinimal.self)
+        
+        XCTAssert((mini as! CarMinimal).make == "Honda")
+        XCTAssert((mini as! CarMinimal).model == "S2000")
+        XCTAssert((mini as! CarMinimal).engine.horsePower == 245)
     }
     
     func testConversionCustomMapping() {
@@ -57,6 +121,17 @@ class ConverterClassTests: XCTestCase {
         
         XCTAssert(teacher.name == "Wes Wickwire")
         XCTAssert(teacher.age == 25)
+    }
+    
+    func testIgnore() {
+        try! Conversion.create(from: Person.self, to: PersonMinimal.self)
+            .ignore(property: "lastName")
+        
+        let source = Person(id: 8, firstName: "Wes", lastName: "Wickwire", age: 25)
+        let mini: PersonMinimal = try! Converter.convert(source)
+        
+        XCTAssert(mini.firstName == "Wes")
+        XCTAssert(mini.lastName == "")
     }
 }
 

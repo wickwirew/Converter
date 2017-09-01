@@ -126,12 +126,23 @@ class ConverterStructTests: XCTestCase {
     func testIgnore() {
         try! Conversion.create(from: Person.self, to: PersonMinimal.self)
             .ignore(property: "lastName")
-        
+
         let source = Person(id: 8, firstName: "Wes", lastName: "Wickwire", age: 25)
         let mini: PersonMinimal = try! Converter.convert(source)
         
         XCTAssert(mini.firstName == "Wes")
         XCTAssert(mini.lastName == "")
+    }
+
+
+    func test_Array() {
+        try! Conversion.create(from: Person.self, to: PersonMinimal.self)
+
+        let source = [Person(id: 8, firstName: "Wes", lastName: "Wickwire", age: 25)]
+        let mini: [PersonMinimal] = try! Converter.convert(source)
+        XCTAssert(mini.count == 1)
+        XCTAssert(mini[0].firstName == "Wes")
+        XCTAssert(mini[0].lastName == "Wickwire")
     }
 }
 

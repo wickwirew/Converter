@@ -25,7 +25,10 @@ import Runtime
 
 
 public final class Converter {
-    
+
+    /**
+    Converts the input object to the destination type.
+    */
     public static func convert<T>(_ object: Any) throws -> T {
         guard let result = try convert(object, to: T.self) as? T else {
             throw ConverterErrors.couldNotCastValue
@@ -33,22 +36,54 @@ public final class Converter {
         
         return result
     }
-    
+
+    /**
+    Converts the input object to the destination type.
+    */
     public static func convert(_ object: Any, to destinationType: Any.Type) throws -> Any {
-        
+        if object is ArrayType {
+            return try convertArray(object, to: destinationType)
+        } else {
+            return try convertObject(object, to: destinationType)
+        }
+    }
+
+    internal static func convertObject(_ object: Any, to destinationType: Any.Type) throws -> Any {
+
         guard let conversion = Conversion.conversions[String(describing: type(of: object)) + String(describing: destinationType)]
-            else { throw ConverterErrors.conversionNotFound }
-        
+                else { throw ConverterErrors.conversionNotFound }
+
         var result = try Construct.build(type: destinationType)
-        
+
         var object = object
-        
+
         for value in conversion.conversions {
             let c = value.value
             try c.runConversion(source: &object, destination: &result)
         }
-        
+
         return result
     }
+
+    public static func convertArray(_ object: Any, to destinationType: Any.Type) throws -> [Any] {
+
+        guard var source = object as? [Any] else { throw ConverterErrors.valueNotArray }
+
+        guard let sourceElementType = try Reflection.getTypeInfo(for: type(of: object)).genericTypes.first
+                else { throw ConverterErrors.arrayTypeUnknown }
+
+        guard let destinationElementType = try Reflection.getTypeInfo(for: destinationType).genericTypes.first
+                else { throw ConverterErrors.arrayTypeUnknown }
+
+        var result = [Any]()
+
+        for item in source {
+            let converted = try convert(item, to: destinationElementType)
+            result.append(converted)
+        }
+
+        return result
+    }
+
     
 }

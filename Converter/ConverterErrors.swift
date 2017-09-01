@@ -27,4 +27,6 @@ import Foundation
 public enum ConverterErrors: Error {
     case conversionNotFound
     case couldNotCastValue
+    case valueNotArray
+    case arrayTypeUnknown
 }

@@ -65,21 +65,18 @@ public final class Converter {
         return result
     }
 
-    public static func convertArray(_ object: Any, to destinationType: Any.Type) throws -> [Any] {
+    public static func convertArray(_ object: Any, to destinationType: Any.Type) throws -> Any {
 
         guard var source = object as? [Any] else { throw ConverterErrors.valueNotArray }
-
-        guard let sourceElementType = try Reflection.getTypeInfo(for: type(of: object)).genericTypes.first
-                else { throw ConverterErrors.arrayTypeUnknown }
 
         guard let destinationElementType = try Reflection.getTypeInfo(for: destinationType).genericTypes.first
                 else { throw ConverterErrors.arrayTypeUnknown }
 
-        var result = [Any]()
+        var result = try Construct.build(type: destinationType) as! OptimisticArray
 
         for item in source {
             let converted = try convert(item, to: destinationElementType)
-            result.append(converted)
+            result.justAddIt(item: converted)
         }
 
         return result
@@ -87,3 +84,20 @@ public final class Converter {
 
     
 }
+
+protocol OptimisticArray {
+    mutating func justAddIt(item: Any)
+}
+
+extension Array: OptimisticArray {
+
+
+
+    mutating func justAddIt(item: Any) {
+        if let value = item as? Element {
+            self.append(value)
+        }
+    }
+
+}
+

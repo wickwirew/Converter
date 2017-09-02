@@ -16,6 +16,7 @@ class ComplexStructTests: XCTestCase {
     func test() {
         try! Conversion.create(from: Post.self, to: PostMinimal.self)
         try! Conversion.create(from: Author.self, to: AuthorMinimal.self)
+        try! Conversion.create(from: Comment.self, to: CommentMinimal.self)
         
         let post = Post()
         
@@ -24,6 +25,9 @@ class ComplexStructTests: XCTestCase {
         XCTAssert(mini.id == 7)
         XCTAssert(mini.title == "title")
         XCTAssert(mini.author.email == "email@email.com")
+        XCTAssert(mini.comments.count == 2)
+        XCTAssert(mini.comments[0].title == "title")
+        XCTAssert(mini.comments[1].title == "title")
     }
     
 }
@@ -36,6 +40,7 @@ fileprivate struct Post {
     var author = Author()
     var title = "title"
     var body = "body"
+    var comments = [Comment(), Comment()]
 }
 
 
@@ -49,7 +54,12 @@ fileprivate struct Author {
 
 fileprivate struct Comment {
     var authorId = 5
+    var title = "title"
     var body = "body"
+}
+
+fileprivate struct CommentMinimal {
+    var title = "title"
 }
 
 
@@ -57,6 +67,7 @@ fileprivate struct PostMinimal {
     var id = 0
     var author = AuthorMinimal()
     var title = ""
+    var comments = [CommentMinimal]()
 }
 
 

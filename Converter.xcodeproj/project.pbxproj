@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		11E62BAED60ED2A4F2F257A2 /* Pods_Converter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ADB05670127EB577EB9A50E /* Pods_Converter.framework */; };
 		7D301D738278CE136234CE57 /* Pods_ConverterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E43F5D67DB7490BCE999A232 /* Pods_ConverterTests.framework */; };
-		96F503C23352B4B4B41782CC /* ArrayType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F50AF36F5FBC1631C468B6 /* ArrayType.swift */; };
+		96F503C23352B4B4B41782CC /* ArrayUtilties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F50AF36F5FBC1631C468B6 /* ArrayUtilties.swift */; };
 		F703F04F1F53893800A7F643 /* ConverterClassTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F703F04E1F53893800A7F643 /* ConverterClassTests.swift */; };
 		F7394C1A1F58CC7800EACC0A /* ComplexStructTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7394C191F58CC7800EACC0A /* ComplexStructTests.swift */; };
 		F7AD8CFE1F50EB5900EC2127 /* ModelConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7AD8CFD1F50EB5900EC2127 /* ModelConversion.swift */; };
@@ -37,7 +37,7 @@
 		1ADB05670127EB577EB9A50E /* Pods_Converter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Converter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		27F9D835061B75F6FC36D2B4 /* Pods-Converter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Converter.release.xcconfig"; path = "Pods/Target Support Files/Pods-Converter/Pods-Converter.release.xcconfig"; sourceTree = "<group>"; };
 		41676F236AA5A71CC5B7E02B /* Pods-ConverterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ConverterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ConverterTests/Pods-ConverterTests.release.xcconfig"; sourceTree = "<group>"; };
-		96F50AF36F5FBC1631C468B6 /* ArrayType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayType.swift; sourceTree = "<group>"; };
+		96F50AF36F5FBC1631C468B6 /* ArrayUtilties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayUtilties.swift; sourceTree = "<group>"; };
 		D4D858DAFA5AC48A9FBAE4C3 /* Pods-Converter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Converter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Converter/Pods-Converter.debug.xcconfig"; sourceTree = "<group>"; };
 		E43F5D67DB7490BCE999A232 /* Pods_ConverterTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ConverterTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F703F04E1F53893800A7F643 /* ConverterClassTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConverterClassTests.swift; sourceTree = "<group>"; };
@@ -126,7 +126,7 @@
 				F7C6AE9C1F4FB30800EBB33F /* PropertyConversion.swift */,
 				F7AD8CFD1F50EB5900EC2127 /* ModelConversion.swift */,
 				F7AD8CFF1F50ED9300EC2127 /* ConverterErrors.swift */,
-				96F50AF36F5FBC1631C468B6 /* ArrayType.swift */,
+				96F50AF36F5FBC1631C468B6 /* ArrayUtilties.swift */,
 			);
 			path = Converter;
 			sourceTree = "<group>";
@@ -343,7 +343,7 @@
 				F7C6AE9B1F4FB2FC00EBB33F /* Conversion.swift in Sources */,
 				F7AD8D001F50ED9300EC2127 /* ConverterErrors.swift in Sources */,
 				F7AD8CFE1F50EB5900EC2127 /* ModelConversion.swift in Sources */,
-				96F503C23352B4B4B41782CC /* ArrayType.swift in Sources */,
+				96F503C23352B4B4B41782CC /* ArrayUtilties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

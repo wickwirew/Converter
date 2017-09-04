@@ -72,32 +72,16 @@ public final class Converter {
         guard let destinationElementType = try Reflection.getTypeInfo(for: destinationType).genericTypes.first
                 else { throw ConverterErrors.arrayTypeUnknown }
 
-        var result = try Construct.build(type: destinationType) as! OptimisticArray
+        guard var result = try Construct.build(type: destinationType) as? ArrayType
+                else { throw ConverterErrors.arrayTypeUnknown }
 
         for item in source {
             let converted = try convert(item, to: destinationElementType)
-            result.justAddIt(item: converted)
+            try result.castAndAdd(item: converted)
         }
 
         return result
     }
-
     
-}
-
-protocol OptimisticArray {
-    mutating func justAddIt(item: Any)
-}
-
-extension Array: OptimisticArray {
-
-
-
-    mutating func justAddIt(item: Any) {
-        if let value = item as? Element {
-            self.append(value)
-        }
-    }
-
 }
 

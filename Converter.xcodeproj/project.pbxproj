@@ -210,7 +210,7 @@
 					F7C6AE7D1F4FB21900EBB33F = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = 6BCHFEMDNT;
-						LastSwiftMigration = 0830;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					F7C6AE861F4FB21900EBB33F = {
@@ -496,7 +496,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -517,7 +518,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.weswickwire.Converter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

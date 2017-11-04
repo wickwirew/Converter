@@ -6,7 +6,7 @@ target 'Converter' do
   use_frameworks!
 
   # Pods for Converter
-  pod 'Runtime', :path => '../SwiftRuntime'
+  pod 'Runtime', :path => '../Runtime'
   
   target 'ConverterTests' do
     inherit! :search_paths

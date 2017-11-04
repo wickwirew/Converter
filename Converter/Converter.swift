@@ -53,7 +53,7 @@ public final class Converter {
         guard let conversion = Conversion.conversions[String(describing: type(of: object)) + String(describing: destinationType)]
                 else { throw ConverterErrors.conversionNotFound }
 
-        var result = try Construct.build(type: destinationType)
+        var result = try build(type: destinationType)
 
         var object = object
 
@@ -67,12 +67,12 @@ public final class Converter {
 
     public static func convertArray(_ object: Any, to destinationType: Any.Type) throws -> Any {
 
-        guard var source = object as? [Any] else { throw ConverterErrors.valueNotArray }
+        guard let source = object as? [Any] else { throw ConverterErrors.valueNotArray }
 
-        guard let destinationElementType = try Reflection.getTypeInfo(for: destinationType).genericTypes.first
+        guard let destinationElementType = try typeInfo(of: destinationType).genericTypes.first
                 else { throw ConverterErrors.arrayTypeUnknown }
 
-        guard var result = try Construct.build(type: destinationType) as? ArrayType
+        guard var result = try build(type: destinationType) as? ArrayType
                 else { throw ConverterErrors.arrayTypeUnknown }
 
         for item in source {

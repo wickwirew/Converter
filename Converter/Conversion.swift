@@ -34,8 +34,8 @@ public final class Conversion {
     @discardableResult
     public static func create<TSource, TDestination>(from source: TSource.Type, to destination: TDestination.Type) throws -> ModelConversion<TSource, TDestination> {
         
-        let sourceProperties = try Reflection.getProperties(of: source)
-        let destinationProperties = try Reflection.getProperties(of: destination)
+        let sourceProperties = try typeInfo(of: source).properties
+        let destinationProperties = try typeInfo(of: destination).properties
         
         var conversions = [String : PropertyConversion]()
         

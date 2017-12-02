@@ -53,7 +53,7 @@ public final class Converter {
         guard let conversion = Conversion.conversions[String(describing: type(of: object)) + String(describing: destinationType)]
                 else { throw ConverterErrors.conversionNotFound }
 
-        var result = try build(type: destinationType)
+        var result = try createInstance(of: destinationType)
 
         var object = object
 
@@ -72,7 +72,7 @@ public final class Converter {
         guard let destinationElementType = try typeInfo(of: destinationType).genericTypes.first
                 else { throw ConverterErrors.arrayTypeUnknown }
 
-        guard var result = try build(type: destinationType) as? ArrayType
+        guard var result = try createInstance(of: destinationType) as? ArrayType
                 else { throw ConverterErrors.arrayTypeUnknown }
 
         for item in source {

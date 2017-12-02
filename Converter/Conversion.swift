@@ -32,7 +32,7 @@ public final class Conversion {
      Creates a conversion from the Source model to the Destination model
      */
     @discardableResult
-    public static func create<TSource, TDestination>(from source: TSource.Type, to destination: TDestination.Type) throws -> ModelConversion<TSource, TDestination> {
+    public static func create<Source, TDestination>(from source: Source.Type, to destination: TDestination.Type) throws -> ModelConversion<Source, TDestination> {
         
         let sourceProperties = try typeInfo(of: source).properties
         let destinationProperties = try typeInfo(of: destination).properties
@@ -42,7 +42,7 @@ public final class Conversion {
         for sourceProperty in sourceProperties {
             if let destinationProperty = getPropertyFor(name: sourceProperty.name, properties: destinationProperties) {
                 
-                let typesEqual = sourceProperty.type == destinationProperty.type
+                let typesEqual = isType(sourceProperty.type, equalTo: destinationProperty.type)
                 
                 let conversion = PropertyConversion() { source, destination in
                     
@@ -60,7 +60,7 @@ public final class Conversion {
             }
         }
         
-        let conversion = ModelConversion<TSource, TDestination>(conversions: conversions)
+        let conversion = ModelConversion<Source, TDestination>(conversions: conversions)
         
         Conversion.conversions[conversion.getKey()] = conversion
         

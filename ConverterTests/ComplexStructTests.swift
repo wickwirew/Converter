@@ -30,6 +30,16 @@ class ComplexStructTests: XCTestCase {
         XCTAssert(mini.comments[1].title == "title")
     }
     
+    func testArray() throws {
+        try! Conversion.create(from: Author.self, to: AuthorMinimal.self)
+        let authors = [Author(), Author(), Author(), Author(), Author(), Author()]
+        let min: [AuthorMinimal] = try Converter.convert(authors)
+        for i in 0..<authors.count {
+            XCTAssert(authors[i].id == min[i].id)
+            XCTAssert(authors[i].email == min[i].email)
+        }
+    }
+    
 }
 
 
@@ -40,6 +50,7 @@ fileprivate struct Post {
     var author = Author()
     var title = "title"
     var body = "body"
+    var something: String? = nil
     var comments = [Comment(), Comment()]
 }
 
@@ -68,6 +79,7 @@ fileprivate struct PostMinimal {
     var author = AuthorMinimal()
     var title = ""
     var comments = [CommentMinimal]()
+    var something = ""
 }
 
 

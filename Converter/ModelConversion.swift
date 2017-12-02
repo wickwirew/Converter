@@ -26,7 +26,7 @@ public protocol ModelConversionProtocol {
     var conversions: [String : PropertyConversionProtocol] { get set }
 }
 
-public class ModelConversion<TSource, TDestination>: ModelConversionProtocol {
+public class ModelConversion<Source, Destination>: ModelConversionProtocol {
     
     /**
      All of the property conversions required for the model.
@@ -40,13 +40,13 @@ public class ModelConversion<TSource, TDestination>: ModelConversionProtocol {
     }
     
     @discardableResult
-    public func `for`(property: String, do conversion: @escaping (inout TSource, inout TDestination) -> Void) -> ModelConversion<TSource, TDestination>{
+    public func `for`(property: String, do conversion: @escaping (inout Source, inout Destination) -> Void) -> ModelConversion<Source, Destination>{
         conversions[property] = CustomPropertyConversion(conversion: conversion)
         return self
     }
     
     @discardableResult
-    public func ignore(property: String) -> ModelConversion<TSource, TDestination>{
+    public func ignore(property: String) -> ModelConversion<Source, Destination>{
         conversions.removeValue(forKey: property)
         return self
     }
@@ -55,6 +55,6 @@ public class ModelConversion<TSource, TDestination>: ModelConversionProtocol {
      Gets the key for the conversion dictionary
      */
     func getKey() -> String {
-        return String(describing: TSource.self) + String(describing: TDestination.self)
+        return String(describing: Source.self) + String(describing: Destination.self)
     }
 }

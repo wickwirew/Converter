@@ -135,7 +135,7 @@ class ConverterClassTests: XCTestCase {
     }
 }
 
-fileprivate class Person: DefaultConstructor {
+fileprivate class Person {
     var id: Int = 0
     var firstName: String = ""
     var lastName: String = ""
@@ -149,7 +149,7 @@ fileprivate class Person: DefaultConstructor {
     }
 }
 
-fileprivate class PersonMinimal: DefaultConstructor {
+fileprivate class PersonMinimal {
     var firstName: String = ""
     var lastName: String = ""
     required init() {}
@@ -159,7 +159,7 @@ fileprivate class PersonMinimal: DefaultConstructor {
     }
 }
 
-fileprivate class Teacher: DefaultConstructor {
+fileprivate class Teacher {
     var name: String = ""
     var age: Int = 0
     required init() {}
@@ -169,7 +169,7 @@ fileprivate class Teacher: DefaultConstructor {
     }
 }
 
-fileprivate class Car: DefaultConstructor {
+fileprivate class Car {
     var id: Int = 0
     var make: String = ""
     var model: String = ""
@@ -183,7 +183,7 @@ fileprivate class Car: DefaultConstructor {
     }
 }
 
-fileprivate class CarMinimal: DefaultConstructor {
+fileprivate class CarMinimal {
     var make: String = ""
     var model: String = ""
     var engine: EngineMinimal = EngineMinimal()
@@ -195,7 +195,7 @@ fileprivate class CarMinimal: DefaultConstructor {
     }
 }
 
-fileprivate class Engine: DefaultConstructor {
+fileprivate class Engine {
     var horsePower: Int = 0
     var serialNumber: String = ""
     required init() {}
@@ -205,7 +205,7 @@ fileprivate class Engine: DefaultConstructor {
     }
 }
 
-fileprivate class EngineMinimal: DefaultConstructor {
+fileprivate class EngineMinimal {
     var horsePower: Int = 0
     required init(){}
     init(horsePower: Int) {

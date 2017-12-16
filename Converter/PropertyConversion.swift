@@ -45,13 +45,13 @@ public struct PropertyConversion: PropertyConversionProtocol {
 
 
 
-public struct CustomPropertyConversion<Source, Destination>: PropertyConversionProtocol {
+public struct CustomPropertyConversion<S, D>: PropertyConversionProtocol {
     
-    let conversion: (inout Source, inout Destination) throws -> Void
+    let conversion: (inout S, inout D) throws -> Void
     
     public func runConversion(source: inout Any, destination: inout Any) throws {
-        guard var sourceTyped = source as? Source else { return }
-        guard var destinationTyped = destination as? Destination else { return }
+        guard var sourceTyped = source as? S else { return }
+        guard var destinationTyped = destination as? D else { return }
         try conversion(&sourceTyped, &destinationTyped)
         destination = destinationTyped
     }

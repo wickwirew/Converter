@@ -24,13 +24,13 @@ import Foundation
 import Runtime
 
 
-fileprivate var conversions = [String : ModelConversionProtocol]()
+var conversions = [String : ModelConversionProtocol]()
 
 /**
  Creates a conversion from the Source model to the Destination model
  */
 @discardableResult
-public func createConversion<Source, TDestination>(from source: Source.Type, to destination: TDestination.Type) throws -> ModelConversion<Source, TDestination> {
+public func createConversion<S, D>(from source: S.Type, to destination: D.Type) throws -> ModelConversion<S, D> {
     
     let sourceProperties = try typeInfo(of: source).properties
     let destinationProperties = try typeInfo(of: destination).properties
@@ -58,7 +58,7 @@ public func createConversion<Source, TDestination>(from source: Source.Type, to 
         }
     }
     
-    let conversion = ModelConversion<Source, TDestination>(conversions: propertyConversions)
+    let conversion = ModelConversion<S, D>(conversions: propertyConversions)
     conversions[conversion.getKey()] = conversion
     return conversion
 }

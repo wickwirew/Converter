@@ -12,4 +12,5 @@ Pod::Spec.new do |s|
     s.platform     = :ios, "9.0"
     s.source       = { :git => "https://github.com/wickwirew/Converter.git", :tag => "0.1.0" }
     s.source_files  = 'Converter/**/*.swift'
+    s.dependency 'Runtime', '0.2.0'
 end

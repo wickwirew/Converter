@@ -24,7 +24,7 @@ import Foundation
 import Runtime
 
 
-var conversions = [String : ModelConversionProtocol]()
+fileprivate var conversions = [String : ModelConversionProtocol]()
 
 /**
  Creates a conversion from the Source model to the Destination model

@@ -14,9 +14,9 @@ import Runtime
 class ComplexStructTests: XCTestCase {
     
     func test() {
-        try! Conversion.create(from: Post.self, to: PostMinimal.self)
-        try! Conversion.create(from: Author.self, to: AuthorMinimal.self)
-        try! Conversion.create(from: Comment.self, to: CommentMinimal.self)
+        try! createConversion(from: Post.self, to: PostMinimal.self)
+        try! createConversion(from: Author.self, to: AuthorMinimal.self)
+        try! createConversion(from: Comment.self, to: CommentMinimal.self)
         
         let post = Post()
         
@@ -31,7 +31,7 @@ class ComplexStructTests: XCTestCase {
     }
     
     func testArray() throws {
-        try! Conversion.create(from: Author.self, to: AuthorMinimal.self)
+        try! createConversion(from: Author.self, to: AuthorMinimal.self)
         let authors = [Author(), Author(), Author(), Author(), Author(), Author()]
         let min: [AuthorMinimal] = try Converter.convert(authors)
         for i in 0..<authors.count {

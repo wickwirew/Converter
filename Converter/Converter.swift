@@ -42,7 +42,7 @@ public func convert(_ object: Any, to destinationType: Any.Type) throws -> Any {
 
 func convertObject(_ object: Any, to destinationType: Any.Type) throws -> Any {
     
-    guard let conversion = Conversion.conversions[String(describing: type(of: object)) + String(describing: destinationType)]
+    guard let conversion = conversions[String(describing: type(of: object)) + String(describing: destinationType)]
         else { throw ConverterErrors.conversionNotFound }
     
     var result = try createInstance(of: destinationType)

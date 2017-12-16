@@ -24,55 +24,46 @@ import Foundation
 import Runtime
 
 
-public final class Conversion {
+var conversions = [String : ModelConversionProtocol]()
+
+/**
+ Creates a conversion from the Source model to the Destination model
+ */
+@discardableResult
+public func createConversion<Source, TDestination>(from source: Source.Type, to destination: TDestination.Type) throws -> ModelConversion<Source, TDestination> {
     
-    internal static var conversions = [String : ModelConversionProtocol]()
+    let sourceProperties = try typeInfo(of: source).properties
+    let destinationProperties = try typeInfo(of: destination).properties
     
-    /**
-     Creates a conversion from the Source model to the Destination model
-     */
-    @discardableResult
-    public static func create<Source, TDestination>(from source: Source.Type, to destination: TDestination.Type) throws -> ModelConversion<Source, TDestination> {
-        
-        let sourceProperties = try typeInfo(of: source).properties
-        let destinationProperties = try typeInfo(of: destination).properties
-        
-        var conversions = [String : PropertyConversion]()
-        
-        for sourceProperty in sourceProperties {
-            if let destinationProperty = getPropertyFor(name: sourceProperty.name, properties: destinationProperties) {
+    var propertyConversions = [String : PropertyConversion]()
+    
+    for sourceProperty in sourceProperties {
+        if let destinationProperty = getPropertyFor(name: sourceProperty.name, properties: destinationProperties) {
+            
+            let typesEqual = isType(sourceProperty.type, equalTo: destinationProperty.type)
+            
+            let conversion = PropertyConversion() { source, destination in
                 
-                let typesEqual = isType(sourceProperty.type, equalTo: destinationProperty.type)
-                
-                let conversion = PropertyConversion() { source, destination in
-                    
-                    if typesEqual {
-                        let value = try sourceProperty.get(from: source)
-                        try destinationProperty.set(value: value, on: &destination)
-                    } else {
-                        let value = try sourceProperty.get(from: source)
-                        let converted = try Converter.convert(value, to: destinationProperty.type)
-                        try destinationProperty.set(value: converted, on: &destination)
-                    }
+                if typesEqual {
+                    let value = try sourceProperty.get(from: source)
+                    try destinationProperty.set(value: value, on: &destination)
+                } else {
+                    let value = try sourceProperty.get(from: source)
+                    let converted = try Converter.convert(value, to: destinationProperty.type)
+                    try destinationProperty.set(value: converted, on: &destination)
                 }
-                
-                conversions[sourceProperty.name] = conversion
             }
+            
+            propertyConversions[sourceProperty.name] = conversion
         }
-        
-        let conversion = ModelConversion<Source, TDestination>(conversions: conversions)
-        
-        Conversion.conversions[conversion.getKey()] = conversion
-        
-        return conversion
     }
     
-    /**
-     Gets the property for the name.
-     */
-    internal static func getPropertyFor(name: String, properties: [PropertyInfo]) -> PropertyInfo? {
-        return properties.first{$0.name == name}
-    }
-    
+    let conversion = ModelConversion<Source, TDestination>(conversions: propertyConversions)
+    conversions[conversion.getKey()] = conversion
+    return conversion
+}
+
+ func getPropertyFor(name: String, properties: [PropertyInfo]) -> PropertyInfo? {
+    return properties.first{$0.name == name}
 }
 

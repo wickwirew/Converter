@@ -28,7 +28,7 @@ import Runtime
 class ConverterStructTests: XCTestCase {
     
     func testConversion() {
-        try! Conversion.create(from: Person.self, to: PersonMinimal.self)
+        try! createConversion(from: Person.self, to: PersonMinimal.self)
         let wes = Person(id: 3, firstName: "Wes", lastName: "Wickwire", age: 25)
         let mini: PersonMinimal = try! Converter.convert(wes)
         
@@ -37,7 +37,7 @@ class ConverterStructTests: XCTestCase {
     }
     
     func testConversion_DesintationUntyped() {
-        try! Conversion.create(from: Person.self, to: PersonMinimal.self)
+        try! createConversion(from: Person.self, to: PersonMinimal.self)
         let wes = Person(id: 3, firstName: "Wes", lastName: "Wickwire", age: 25)
         let mini = try! Converter.convert(wes, to: PersonMinimal.self)
         
@@ -46,7 +46,7 @@ class ConverterStructTests: XCTestCase {
     }
     
     func testConversion_SourceUntyped() {
-        try! Conversion.create(from: Person.self, to: PersonMinimal.self)
+        try! createConversion(from: Person.self, to: PersonMinimal.self)
         let wes: Any = Person(id: 3, firstName: "Wes", lastName: "Wickwire", age: 25)
         let mini: PersonMinimal = try! Converter.convert(wes)
         
@@ -55,7 +55,7 @@ class ConverterStructTests: XCTestCase {
     }
     
     func testConversion_Untyped() {
-        try! Conversion.create(from: Person.self, to: PersonMinimal.self)
+        try! createConversion(from: Person.self, to: PersonMinimal.self)
         let wes: Any = Person(id: 3, firstName: "Wes", lastName: "Wickwire", age: 25)
         let mini = try! Converter.convert(wes, to: PersonMinimal.self)
         
@@ -64,8 +64,8 @@ class ConverterStructTests: XCTestCase {
     }
     
     func testConversion_Nested() {
-        try! Conversion.create(from: Engine.self, to: EngineMinimal.self)
-        try! Conversion.create(from: Car.self, to: CarMinimal.self)
+        try! createConversion(from: Engine.self, to: EngineMinimal.self)
+        try! createConversion(from: Car.self, to: CarMinimal.self)
         
         let s2k = Car(id: 3, make: "Honda", model: "S2000", engine: Engine(horsePower: 245, serialNumber: "34254352"))
         let mini: CarMinimal = try! Converter.convert(s2k)
@@ -76,8 +76,8 @@ class ConverterStructTests: XCTestCase {
     }
     
     func testConversion_Nested_DestinationUntyped() {
-        try! Conversion.create(from: Engine.self, to: EngineMinimal.self)
-        try! Conversion.create(from: Car.self, to: CarMinimal.self)
+        try! createConversion(from: Engine.self, to: EngineMinimal.self)
+        try! createConversion(from: Car.self, to: CarMinimal.self)
         
         let s2k = Car(id: 3, make: "Honda", model: "S2000", engine: Engine(horsePower: 245, serialNumber: "34254352"))
         let mini = try! Converter.convert(s2k, to: CarMinimal.self)
@@ -88,8 +88,8 @@ class ConverterStructTests: XCTestCase {
     }
     
     func testConversion_Nested_SourceUntyped() {
-        try! Conversion.create(from: Engine.self, to: EngineMinimal.self)
-        try! Conversion.create(from: Car.self, to: CarMinimal.self)
+        try! createConversion(from: Engine.self, to: EngineMinimal.self)
+        try! createConversion(from: Car.self, to: CarMinimal.self)
         
         let s2k: Any = Car(id: 3, make: "Honda", model: "S2000", engine: Engine(horsePower: 245, serialNumber: "34254352"))
         let mini: CarMinimal = try! Converter.convert(s2k)
@@ -100,8 +100,8 @@ class ConverterStructTests: XCTestCase {
     }
     
     func testConversion_Nested_Untyped() {
-        try! Conversion.create(from: Engine.self, to: EngineMinimal.self)
-        try! Conversion.create(from: Car.self, to: CarMinimal.self)
+        try! createConversion(from: Engine.self, to: EngineMinimal.self)
+        try! createConversion(from: Car.self, to: CarMinimal.self)
         
         let s2k = Car(id: 3, make: "Honda", model: "S2000", engine: Engine(horsePower: 245, serialNumber: "34254352"))
         let mini = try! Converter.convert(s2k, to: CarMinimal.self)
@@ -112,7 +112,7 @@ class ConverterStructTests: XCTestCase {
     }
     
     func testConversionCustomMapping() {
-        try! Conversion.create(from: Person.self, to: Teacher.self)
+        try! createConversion(from: Person.self, to: Teacher.self)
             .for(property: "name", do: {s,d in d.name = "\(s.firstName) \(s.lastName)"})
         
         let person = Person(id: 7, firstName: "Wes", lastName: "Wickwire", age: 25)
@@ -124,20 +124,20 @@ class ConverterStructTests: XCTestCase {
     }
     
     func testIgnore() {
-        try! Conversion.create(from: Person.self, to: PersonMinimal.self)
+        try! createConversion(from: Person.self, to: PersonMinimal.self)
             .ignore(property: "lastName")
-
+        
         let source = Person(id: 8, firstName: "Wes", lastName: "Wickwire", age: 25)
         let mini: PersonMinimal = try! Converter.convert(source)
         
         XCTAssert(mini.firstName == "Wes")
         XCTAssert(mini.lastName == "")
     }
-
-
+    
+    
     func test_Array() {
-        try! Conversion.create(from: Person.self, to: PersonMinimal.self)
-
+        try! createConversion(from: Person.self, to: PersonMinimal.self)
+        
         let source = [Person(id: 8, firstName: "Wes", lastName: "Wickwire", age: 25)]
         let mini: [PersonMinimal] = try! Converter.convert(source)
         XCTAssert(mini.count == 1)
@@ -184,3 +184,4 @@ fileprivate struct Engine {
 fileprivate struct EngineMinimal {
     var horsePower: Int = 0
 }
+

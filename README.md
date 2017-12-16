@@ -2,7 +2,7 @@
 Converter is an object mapper similar to [AutoMapper](https://github.com/AutoMapper/AutoMapper) for Swift. Converting an object of one type to a different type usually invloves writing a lot of boiler plate code. Converter is an automatic convetion based solution. Still a WIP, but nearing the end.
 
 # Example
-There comes time where you have two similar models. Say you have a `User` model. You want to send an API request to update the User but it is a slimmed down version called `UserDTO`. Mapping `User` to `UserDTO` would usually involve manual code to coverter it. With Converter:
+There comes time where you have two similar models. Say you have a `User` model. You want to send an API request to update the User but it is a slimmed down version called `UserDTO`. Mapping `User` to `UserDTO` would usually involve writing manual code to coverter it. With Converter:
 ```swift
 // Create conversion
 try createConversion(from: User.self, to: UserDTO.self)
@@ -40,3 +40,8 @@ try createConversion(from: Person.self, to: Teacher.self)
      .ignore(property: "lastName")
 ```
 
+# How Does it Work?
+Converter will automatically convert two objects when the property names are the same, and allows for custom mappings. The `createConversion(from: to:)` method defines a path of how it will be converted. Some of the more expensive operations are done once when the conversion is created making the conversion just a wee bit faster.
+
+# Contributions
+Anyone is welcome to contribute! It is still a work in progress. If there is something you would like implemented either send a pull request or open an issue. Any questions also feel free to open an issue.

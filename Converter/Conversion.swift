@@ -63,7 +63,12 @@ public func createConversion<S, D>(from source: S.Type, to destination: D.Type) 
     return conversion
 }
 
- func getPropertyFor(name: String, properties: [PropertyInfo]) -> PropertyInfo? {
+func getPropertyFor(name: String, properties: [PropertyInfo]) -> PropertyInfo? {
     return properties.first{$0.name == name}
+}
+
+func conversionExists(from source: Any.Type, to destination: Any.Type) -> Bool {
+    let key = "\(source)\(destination)"
+    return conversions[key] != nil
 }
 

@@ -32,7 +32,7 @@ public func convert<T>(_ object: Any) throws -> T {
     return result
 }
 
-public func convert(_ object: Any, to destinationType: Any.Type) throws -> Any {
+public func convert(_ object: Any, to destinationType: Any.Type) throws -> Any {    
     if object is ArrayType {
         return try convertArray(object, to: destinationType)
     } else {
@@ -42,7 +42,7 @@ public func convert(_ object: Any, to destinationType: Any.Type) throws -> Any {
 
 func convertObject(_ object: Any, to destinationType: Any.Type) throws -> Any {
     
-    guard let conversion = conversions[String(describing: type(of: object)) + String(describing: destinationType)]
+    guard let conversion = conversions["\(type(of: object))\(destinationType)"]
         else { throw ConverterErrors.conversionNotFound }
     
     var result = try createInstance(of: destinationType)

@@ -12,6 +12,7 @@
 		96F503C23352B4B4B41782CC /* ArrayUtilties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F50AF36F5FBC1631C468B6 /* ArrayUtilties.swift */; };
 		DEBEE45D1FB16D75007EEE90 /* TypeComparer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBEE45C1FB16D75007EEE90 /* TypeComparer.swift */; };
 		DEBEE45F1FB16DC8007EEE90 /* Optional+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBEE45E1FB16DC8007EEE90 /* Optional+Extensions.swift */; };
+		DEF15C071FDB8F4B00468061 /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF15C061FDB8F4B00468061 /* PerformanceTests.swift */; };
 		F703F04F1F53893800A7F643 /* ConverterClassTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F703F04E1F53893800A7F643 /* ConverterClassTests.swift */; };
 		F7394C1A1F58CC7800EACC0A /* ComplexStructTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7394C191F58CC7800EACC0A /* ComplexStructTests.swift */; };
 		F7AD8CFE1F50EB5900EC2127 /* ModelConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7AD8CFD1F50EB5900EC2127 /* ModelConversion.swift */; };
@@ -43,6 +44,7 @@
 		D4D858DAFA5AC48A9FBAE4C3 /* Pods-Converter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Converter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Converter/Pods-Converter.debug.xcconfig"; sourceTree = "<group>"; };
 		DEBEE45C1FB16D75007EEE90 /* TypeComparer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeComparer.swift; sourceTree = "<group>"; };
 		DEBEE45E1FB16DC8007EEE90 /* Optional+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Extensions.swift"; sourceTree = "<group>"; };
+		DEF15C061FDB8F4B00468061 /* PerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceTests.swift; sourceTree = "<group>"; };
 		E43F5D67DB7490BCE999A232 /* Pods_ConverterTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ConverterTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F703F04E1F53893800A7F643 /* ConverterClassTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConverterClassTests.swift; sourceTree = "<group>"; };
 		F7394C191F58CC7800EACC0A /* ComplexStructTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplexStructTests.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				F7C6AE8E1F4FB21900EBB33F /* Info.plist */,
 				F703F04E1F53893800A7F643 /* ConverterClassTests.swift */,
 				F7394C191F58CC7800EACC0A /* ComplexStructTests.swift */,
+				DEF15C061FDB8F4B00468061 /* PerformanceTests.swift */,
 			);
 			path = ConverterTests;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 			files = (
 				F7C6AE8D1F4FB21900EBB33F /* ConverterStructTests.swift in Sources */,
 				F703F04F1F53893800A7F643 /* ConverterClassTests.swift in Sources */,
+				DEF15C071FDB8F4B00468061 /* PerformanceTests.swift in Sources */,
 				F7394C1A1F58CC7800EACC0A /* ComplexStructTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

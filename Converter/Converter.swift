@@ -24,64 +24,53 @@ import Foundation
 import Runtime
 
 
-public final class Converter {
-
-    /**
-    Converts the input object to the destination type.
-    */
-    public static func convert<T>(_ object: Any) throws -> T {
-        guard let result = try convert(object, to: T.self) as? T else {
-            throw ConverterErrors.couldNotCastValue
-        }
-        
-        return result
-    }
-
-    /**
-    Converts the input object to the destination type.
-    */
-    public static func convert(_ object: Any, to destinationType: Any.Type) throws -> Any {
-        if object is ArrayType {
-            return try convertArray(object, to: destinationType)
-        } else {
-            return try convertObject(object, to: destinationType)
-        }
-    }
-
-    internal static func convertObject(_ object: Any, to destinationType: Any.Type) throws -> Any {
-
-        guard let conversion = Conversion.conversions[String(describing: type(of: object)) + String(describing: destinationType)]
-                else { throw ConverterErrors.conversionNotFound }
-
-        var result = try createInstance(of: destinationType)
-
-        var object = object
-
-        for value in conversion.conversions {
-            let c = value.value
-            try c.runConversion(source: &object, destination: &result)
-        }
-
-        return result
-    }
-
-    public static func convertArray(_ object: Any, to destinationType: Any.Type) throws -> Any {
-
-        guard let source = object as? [Any] else { throw ConverterErrors.valueNotArray }
-
-        guard let destinationElementType = try typeInfo(of: destinationType).genericTypes.first
-                else { throw ConverterErrors.arrayTypeUnknown }
-
-        guard var result = try createInstance(of: destinationType) as? ArrayType
-                else { throw ConverterErrors.arrayTypeUnknown }
-
-        for item in source {
-            let converted = try convert(item, to: destinationElementType)
-            try result.castAndAdd(item: converted)
-        }
-
-        return result
+public func convert<T>(_ object: Any) throws -> T {
+    guard let result = try convert(object, to: T.self) as? T else {
+        throw ConverterErrors.couldNotCastValue
     }
     
+    return result
 }
 
+public func convert(_ object: Any, to destinationType: Any.Type) throws -> Any {
+    if object is ArrayType {
+        return try convertArray(object, to: destinationType)
+    } else {
+        return try convertObject(object, to: destinationType)
+    }
+}
+
+func convertObject(_ object: Any, to destinationType: Any.Type) throws -> Any {
+    
+    guard let conversion = Conversion.conversions[String(describing: type(of: object)) + String(describing: destinationType)]
+        else { throw ConverterErrors.conversionNotFound }
+    
+    var result = try createInstance(of: destinationType)
+    
+    var object = object
+    
+    for value in conversion.conversions {
+        let c = value.value
+        try c.runConversion(source: &object, destination: &result)
+    }
+    
+    return result
+}
+
+func convertArray(_ object: Any, to destinationType: Any.Type) throws -> Any {
+    
+    guard let source = object as? [Any] else { throw ConverterErrors.valueNotArray }
+    
+    guard let destinationElementType = try typeInfo(of: destinationType).genericTypes.first
+        else { throw ConverterErrors.arrayTypeUnknown }
+    
+    guard var result = try createInstance(of: destinationType) as? ArrayType
+        else { throw ConverterErrors.arrayTypeUnknown }
+    
+    for item in source {
+        let converted = try convert(item, to: destinationElementType)
+        try result.castAndAdd(item: converted)
+    }
+    
+    return result
+}

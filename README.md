@@ -41,7 +41,7 @@ try createConversion(from: Person.self, to: Teacher.self)
 ```
 
 ## How Does it Work?
-Converter will automatically convert two objects when the property names are the same, and allows for custom mappings. The `createConversion(from: to:)` method defines a path of how it will be converted. Some of the more expensive operations are done once when the conversion is created making the conversion just a wee bit faster. To get and set the values dynamically it uses my other library [Runtime](https://github.com/wickwirew/Runtime)
+To get and set the values dynamically it uses my other library [Runtime](https://github.com/wickwirew/Runtime). Converter will automatically convert two objects when the property names are the same, and allows for custom mappings. The `createConversion(from: to:)` method defines a path of how it will be converted. Some of the more expensive operations are done once when the conversion is created making the conversion just a wee bit faster.
 
 ## Contributions
 Anyone is welcome to contribute! It is still a work in progress. If there is something you would like implemented either send a pull request or open an issue. Any questions also feel free to open an issue.

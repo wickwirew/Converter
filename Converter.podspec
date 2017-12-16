@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
     s.version      = "0.1.0"
     s.summary      = "An automatic convention based, boiler plate free, object mapper for Swift "
     s.description  = <<-DESC
-    An automatic convention based, boiler plate free, object mapper for Swift 
+    Converter is an object mapper similar to AutoMapper for Swift. Converting an object of one type to a different type usually invloves writing a lot of boiler plate code. Converter is an automatic convetion based solution.
     DESC
     s.homepage     = "https://github.com/wickwirew/Converter"
     s.license      = "MIT"

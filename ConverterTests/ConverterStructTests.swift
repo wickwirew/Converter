@@ -39,7 +39,7 @@ class ConverterStructTests: XCTestCase {
     func testConversion_DesintationUntyped() {
         try! createConversion(from: Person.self, to: PersonMinimal.self)
         let wes = Person(id: 3, firstName: "Wes", lastName: "Wickwire", age: 25)
-        let mini = try! Converter.convert(wes, to: PersonMinimal.self)
+        let mini = try! convert(wes, to: PersonMinimal.self)
         
         XCTAssert((mini as! PersonMinimal).firstName == "Wes")
         XCTAssert((mini as! PersonMinimal).lastName == "Wickwire")

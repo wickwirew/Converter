@@ -28,8 +28,8 @@ struct Teacher {
 }
 
 // Conversion with custom property map
-try! createConversion(from: Person.self, to: Teacher.self)
-      .for(property: "name", use: {"\($0.firstName) \($0.lastName)"})
+try createConversion(from: Person.self, to: Teacher.self)
+     .for(property: "name", use: {"\($0.firstName) \($0.lastName)"})
 ```
 So when the coversion runs it will now set the `name` property on teacher to the combination of `firstName` and `lastName`.
 

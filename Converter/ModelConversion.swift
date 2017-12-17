@@ -35,8 +35,14 @@ public class ModelConversion<S, D>: ModelConversionProtocol {
     }
     
     @discardableResult
-    public func `for`(property: String, do conversion: @escaping (inout S, inout D) -> Void) -> ModelConversion<S, D>{
-        conversions[property] = CustomPropertyConversion(conversion: conversion)
+    public func `for`(property: String, do action: @escaping (inout S, inout D) -> Void) -> ModelConversion<S, D>{
+        conversions[property] = CustomPropertyAction(action: action)
+        return self
+    }
+    
+    @discardableResult
+    public func `for`<T>(property: String, use getter: @escaping (S) throws -> T) -> ModelConversion<S, D>{
+        conversions[property] = CustomPropertyConversion<S, D, T>(propertyName: property, getter: getter)
         return self
     }
     

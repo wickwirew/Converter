@@ -113,7 +113,7 @@ class ConverterClassTests: XCTestCase {
     
     func testConversionCustomMapping() {
         try! createConversion(from: Person.self, to: Teacher.self)
-            .for(property: "name", do: {s,d in d.name = "\(s.firstName) \(s.lastName)"})
+            .for(property: "name", use: {"\($0.firstName) \($0.lastName)"})
         
         let person = Person(id: 7, firstName: "Wes", lastName: "Wickwire", age: 25)
         

@@ -36,7 +36,13 @@ public class ModelConversion<S, D>: ModelConversionProtocol {
     
     @discardableResult
     public func `for`<T>(property: String, use getter: @escaping (S) throws -> T) -> ModelConversion<S, D>{
-        conversions[property] = CustomPropertyConversion<S, D, T>(property: property, getter: getter)
+        conversions[property] = CustomPropertyConversionClosure<S, D, T>(property: property, getter: getter)
+        return self
+    }
+    
+    @discardableResult
+    public func `for`<T>(property: String, use path: KeyPath<S, T>) -> ModelConversion<S, D>{
+        conversions[property] = CustomPropertyConversionKeyPath<S, D, T>(property: property, path: path)
         return self
     }
     

@@ -39,15 +39,49 @@ public struct PropertyConversion: PropertyConversionProtocol {
     }
 }
 
-public struct CustomPropertyConversion<S, D, T>: PropertyConversionProtocol {
-    
-    let property: String
-    let getter: (S) throws -> T
+
+public protocol CustomPropertyConversion: PropertyConversionProtocol {
+    associatedtype Source
+    associatedtype Value
+    associatedtype Destination
+    var property: String { get set }
+    func getValue(from source: Source) throws -> Value
+}
+
+extension CustomPropertyConversion {
     
     public func runConversion(source: inout Any, destination: inout Any) throws {
-        guard let source = source as? S else { return }
-        let value = try getter(source)
-        let info = try typeInfo(of: D.self)
+        guard let source = source as? Source else { return }
+        let value = try getValue(from: source)
+        let info = try typeInfo(of: Destination.self)
         try info.property(named: property).set(value: value, on: &destination)
+    }
+}
+
+public struct CustomPropertyConversionClosure<S, D, V>: CustomPropertyConversion {
+    
+    public typealias Source = S
+    public typealias Value = V
+    public typealias Destination = D
+    
+    public var property: String
+    public let getter: (Source) throws -> Value
+    
+    public func getValue(from source: Source) throws -> Value {
+        return try getter(source)
+    }
+}
+
+public struct CustomPropertyConversionKeyPath<S, D, V>: CustomPropertyConversion {
+    
+    public typealias Source = S
+    public typealias Value = V
+    public typealias Destination = D
+    
+    public var property: String
+    public let path: KeyPath<S, V>
+    
+    public func getValue(from source: Source) throws -> Value {
+        return source[keyPath: path]
     }
 }

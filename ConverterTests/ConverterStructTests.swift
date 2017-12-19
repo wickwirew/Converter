@@ -123,6 +123,18 @@ class ConverterStructTests: XCTestCase {
         XCTAssert(teacher.age == 25)
     }
     
+    func testConversionCustomMappingKeyPath() {
+        try! createConversion(from: Person.self, to: Teacher.self)
+            .for(property: "name", use: \.firstName)
+        
+        let person = Person(id: 7, firstName: "Wes", lastName: "Wickwire", age: 25)
+        
+        let teacher: Teacher = try! Converter.convert(person)
+        
+        XCTAssert(teacher.name == "Wes")
+        XCTAssert(teacher.age == 25)
+    }
+    
     func testIgnore() {
         try! createConversion(from: Person.self, to: PersonMinimal.self)
             .ignore(property: "lastName")

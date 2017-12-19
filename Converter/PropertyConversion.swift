@@ -31,11 +31,7 @@ public protocol PropertyConversionProtocol {
 
 
 public struct PropertyConversion: PropertyConversionProtocol {
-
-    /**
-     The closure that is responsible for setting the value on the destination
-     - Parameters: source, destination
-     */
+    
     let conversion: (inout Any, inout Any) throws -> Void
     
     public func runConversion(source: inout Any, destination: inout Any) throws {
@@ -43,29 +39,15 @@ public struct PropertyConversion: PropertyConversionProtocol {
     }
 }
 
-
-
-public struct CustomPropertyAction<S, D>: PropertyConversionProtocol {
-    
-    let action: (inout S, inout D) throws -> Void
-    
-    public func runConversion(source: inout Any, destination: inout Any) throws {
-        guard var sourceTyped = source as? S else { return }
-        guard var destinationTyped = destination as? D else { return }
-        try action(&sourceTyped, &destinationTyped)
-        destination = destinationTyped
-    }
-}
-
 public struct CustomPropertyConversion<S, D, T>: PropertyConversionProtocol {
     
-    let propertyName: String
+    let property: String
     let getter: (S) throws -> T
     
     public func runConversion(source: inout Any, destination: inout Any) throws {
         guard let source = source as? S else { return }
         let value = try getter(source)
         let info = try typeInfo(of: D.self)
-        try info.property(named: propertyName).set(value: value, on: &destination)
+        try info.property(named: property).set(value: value, on: &destination)
     }
 }

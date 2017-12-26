@@ -30,7 +30,7 @@ class ConverterStructTests: XCTestCase {
     func testConversion() {
         try! createConversion(from: Person.self, to: PersonMinimal.self)
         let wes = Person(id: 3, firstName: "Wes", lastName: "Wickwire", age: 25)
-        let mini: PersonMinimal = try! Converter.convert(wes)
+        let mini: PersonMinimal = try! convert(wes)
         
         XCTAssert(mini.firstName == "Wes")
         XCTAssert(mini.lastName == "Wickwire")

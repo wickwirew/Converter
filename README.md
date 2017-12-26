@@ -27,7 +27,13 @@ struct Teacher {
     var age: Int
 }
 
-// Conversion with custom property map
+// Choose property from it's key path
+try createConversion(from: Person.self, to: Teacher.self)
+     .for(property: "name", use: \.firstName)
+     
+// OR
+
+// Closure to allow a combination
 try createConversion(from: Person.self, to: Teacher.self)
      .for(property: "name", use: {"\($0.firstName) \($0.lastName)"})
 ```

@@ -30,7 +30,7 @@ var conversions = [String : ModelConversionProtocol]()
  Creates a conversion from the Source model to the Destination model
  */
 @discardableResult
-public func createConversion<S, D>(from source: S.Type, to destination: D.Type) throws -> ModelConversion<S, D> {
+public func createConversion<S, D>(from source: S.Type, to destination: D.Type, naming: NameMatching = .loose) throws -> ModelConversion<S, D> {
     
     let sourceProperties = try typeInfo(of: source).properties
     let destinationProperties = try typeInfo(of: destination).properties
@@ -38,23 +38,8 @@ public func createConversion<S, D>(from source: S.Type, to destination: D.Type) 
     var propertyConversions = [String : PropertyConversion]()
     
     for sourceProperty in sourceProperties {
-        if let destinationProperty = getPropertyFor(name: sourceProperty.name, properties: destinationProperties) {
-            
-            let typesEqual = isType(sourceProperty.type, equalTo: destinationProperty.type)
-            
-            let conversion = PropertyConversion() { source, destination in
-                
-                if typesEqual {
-                    let value = try sourceProperty.get(from: source)
-                    try destinationProperty.set(value: value, on: &destination)
-                } else {
-                    let value = try sourceProperty.get(from: source)
-                    let converted = try Converter.convert(value, to: destinationProperty.type)
-                    try destinationProperty.set(value: converted, on: &destination)
-                }
-            }
-            
-            propertyConversions[sourceProperty.name] = conversion
+        if let destinationProperty = getPropertyFor(name: sourceProperty.name, properties: destinationProperties, naming: naming) {
+            propertyConversions[sourceProperty.name] = propertyConversion(source: sourceProperty, destination: destinationProperty)
         }
     }
     
@@ -63,8 +48,33 @@ public func createConversion<S, D>(from source: S.Type, to destination: D.Type) 
     return conversion
 }
 
-func getPropertyFor(name: String, properties: [PropertyInfo]) -> PropertyInfo? {
-    return properties.first{$0.name == name}
+func propertyConversion(source sourceProperty: PropertyInfo, destination destinationProperty: PropertyInfo) -> PropertyConversion {
+    let typesEqual = isType(sourceProperty.type, equalTo: destinationProperty.type)
+    return PropertyConversion { source, destination in
+        if typesEqual {
+            let value = try sourceProperty.get(from: source)
+            try destinationProperty.set(value: value, on: &destination)
+        } else {
+            let value = try sourceProperty.get(from: source)
+            let converted = try Converter.convert(value, to: destinationProperty.type)
+            try destinationProperty.set(value: converted, on: &destination)
+        }
+    }
+}
+
+func getPropertyFor(name: String, properties: [PropertyInfo], naming: NameMatching) -> PropertyInfo? {
+    switch naming {
+    case .loose:
+        if let property = properties.first(where: {$0.name == name}) {
+            return property
+        } else if let property = properties.first(where: {$0.name == "_\(name)"}) {
+            return property
+        } else {
+            return nil
+        }
+    case .strict:
+        return properties.first{$0.name == name}
+    }
 }
 
 func conversionExists(from source: Any.Type, to destination: Any.Type) -> Bool {

@@ -26,9 +26,6 @@ import Runtime
 
 var conversions = [String : ModelConversionProtocol]()
 
-/**
- Creates a conversion from the Source model to the Destination model
- */
 @discardableResult
 public func createConversion<S, D>(from source: S.Type, to destination: D.Type, naming: NameMatching = .loose) throws -> ModelConversion<S, D> {
     
@@ -65,13 +62,8 @@ func propertyConversion(source sourceProperty: PropertyInfo, destination destina
 func getPropertyFor(name: String, properties: [PropertyInfo], naming: NameMatching) -> PropertyInfo? {
     switch naming {
     case .loose:
-        if let property = properties.first(where: {$0.name == name}) {
-            return property
-        } else if let property = properties.first(where: {$0.name == "_\(name)"}) {
-            return property
-        } else {
-            return nil
-        }
+        let possibilities = possibleNames(from: name)
+        return properties.first{possibilities.contains($0.name)}
     case .strict:
         return properties.first{$0.name == name}
     }

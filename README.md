@@ -13,7 +13,7 @@ let dto = try convert(user, to: UserDTO.self)
 It's that easy! No boiler plate code to write 🎉.
 
 ## AWS Example
-If you use the AWS Mobile Hub when it generates the domain models for the DynamoDb instance every property is prefixed with an underscore, and the are classes by default. Say you would like to use structs instead and not have the underscore you would normally have to write code to convert the AWS domain model to the struct model. Converter will do this automatically!
+If you use the AWS Mobile Hub when it generates the domain models for the DynamoDb instance every property is prefixed with an underscore, and they are classes by default. Say you would like to use structs instead and not have the underscore you would normally have to write code to convert the AWS domain model to the struct model. Converter will do this automatically!
 ```swift
 class PetDomain: AWSDynamoDBObjectModel, AWSDynamoDBModeling { 
     var _userId: String?

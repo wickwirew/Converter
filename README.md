@@ -65,7 +65,7 @@ struct PersonPascal {
 
 Private properties sometimes are noted with an underscore at the beginning. Converter will automatically convert them as well. So for example `firstName` can be mapped automatically to `_firstName`. 
 
-If you would like the conversion to honor the exact name only then when the conversion if created you can specify a `strict` matching policy.
+If you would like the conversion to match properties only the names are an exact match then when the conversion if created you can specify a `strict` matching policy.
 
 Example:
 ```swift

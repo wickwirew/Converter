@@ -80,4 +80,11 @@ class NameMatching: XCTestCase {
         XCTAssert(w[2] == "name")
     }
     
+    func testWordsSingle() {
+        let name = "_id"
+        let w = words(from: name)
+        XCTAssert(w.count == 1)
+        XCTAssert(w[0] == "id")
+    }
+    
 }

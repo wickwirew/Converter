@@ -27,7 +27,7 @@ import Runtime
 var conversions = [String : ModelConversionProtocol]()
 
 @discardableResult
-public func createConversion<S, D>(from source: S.Type, to destination: D.Type, naming: NameMatching = .loose) throws -> ModelConversion<S, D> {
+public func createConversion<S, D>(from source: S.Type, to destination: D.Type, matching: NameMatching = .loose) throws -> ModelConversion<S, D> {
     
     let sourceProperties = try typeInfo(of: source).properties
     let destinationProperties = try typeInfo(of: destination).properties
@@ -35,7 +35,7 @@ public func createConversion<S, D>(from source: S.Type, to destination: D.Type, 
     var propertyConversions = [String : PropertyConversion]()
     
     for sourceProperty in sourceProperties {
-        if let destinationProperty = getPropertyFor(name: sourceProperty.name, properties: destinationProperties, naming: naming) {
+        if let destinationProperty = getPropertyFor(name: sourceProperty.name, properties: destinationProperties, matching: matching) {
             propertyConversions[sourceProperty.name] = propertyConversion(source: sourceProperty, destination: destinationProperty)
         }
     }
@@ -59,8 +59,8 @@ func propertyConversion(source sourceProperty: PropertyInfo, destination destina
     }
 }
 
-func getPropertyFor(name: String, properties: [PropertyInfo], naming: NameMatching) -> PropertyInfo? {
-    switch naming {
+func getPropertyFor(name: String, properties: [PropertyInfo], matching: NameMatching) -> PropertyInfo? {
+    switch matching {
     case .loose:
         let possibilities = possibleNames(from: name)
         return properties.first{possibilities.contains($0.name)}

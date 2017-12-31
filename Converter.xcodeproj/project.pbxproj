@@ -12,6 +12,8 @@
 		96F503C23352B4B4B41782CC /* ArrayUtilties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96F50AF36F5FBC1631C468B6 /* ArrayUtilties.swift */; };
 		DE95F82C1FF840000059E6BE /* NameMatching.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE95F82B1FF840000059E6BE /* NameMatching.swift */; };
 		DE95F82E1FF848530059E6BE /* NameMatching.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE95F82D1FF848530059E6BE /* NameMatching.swift */; };
+		DE95F8301FF886DA0059E6BE /* Character+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE95F82F1FF886DA0059E6BE /* Character+Extensions.swift */; };
+		DE95F8321FF8955F0059E6BE /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE95F8311FF8955F0059E6BE /* String+Extensions.swift */; };
 		DEBEE45D1FB16D75007EEE90 /* TypeComparer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBEE45C1FB16D75007EEE90 /* TypeComparer.swift */; };
 		DEBEE45F1FB16DC8007EEE90 /* Optional+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBEE45E1FB16DC8007EEE90 /* Optional+Extensions.swift */; };
 		DEF15C071FDB8F4B00468061 /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEF15C061FDB8F4B00468061 /* PerformanceTests.swift */; };
@@ -46,6 +48,8 @@
 		D4D858DAFA5AC48A9FBAE4C3 /* Pods-Converter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Converter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Converter/Pods-Converter.debug.xcconfig"; sourceTree = "<group>"; };
 		DE95F82B1FF840000059E6BE /* NameMatching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameMatching.swift; sourceTree = "<group>"; };
 		DE95F82D1FF848530059E6BE /* NameMatching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameMatching.swift; sourceTree = "<group>"; };
+		DE95F82F1FF886DA0059E6BE /* Character+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Character+Extensions.swift"; sourceTree = "<group>"; };
+		DE95F8311FF8955F0059E6BE /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		DEBEE45C1FB16D75007EEE90 /* TypeComparer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeComparer.swift; sourceTree = "<group>"; };
 		DEBEE45E1FB16DC8007EEE90 /* Optional+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+Extensions.swift"; sourceTree = "<group>"; };
 		DEF15C061FDB8F4B00468061 /* PerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceTests.swift; sourceTree = "<group>"; };
@@ -138,8 +142,10 @@
 				F7AD8CFF1F50ED9300EC2127 /* ConverterErrors.swift */,
 				96F50AF36F5FBC1631C468B6 /* ArrayUtilties.swift */,
 				DEBEE45C1FB16D75007EEE90 /* TypeComparer.swift */,
-				DEBEE45E1FB16DC8007EEE90 /* Optional+Extensions.swift */,
 				DE95F82B1FF840000059E6BE /* NameMatching.swift */,
+				DEBEE45E1FB16DC8007EEE90 /* Optional+Extensions.swift */,
+				DE95F82F1FF886DA0059E6BE /* Character+Extensions.swift */,
+				DE95F8311FF8955F0059E6BE /* String+Extensions.swift */,
 			);
 			path = Converter;
 			sourceTree = "<group>";
@@ -363,10 +369,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				F7C6AE991F4FB27A00EBB33F /* Converter.swift in Sources */,
+				DE95F8321FF8955F0059E6BE /* String+Extensions.swift in Sources */,
 				F7C6AE9D1F4FB30800EBB33F /* PropertyConversion.swift in Sources */,
 				F7C6AE9B1F4FB2FC00EBB33F /* Conversion.swift in Sources */,
 				DE95F82C1FF840000059E6BE /* NameMatching.swift in Sources */,
 				F7AD8D001F50ED9300EC2127 /* ConverterErrors.swift in Sources */,
+				DE95F8301FF886DA0059E6BE /* Character+Extensions.swift in Sources */,
 				F7AD8CFE1F50EB5900EC2127 /* ModelConversion.swift in Sources */,
 				DEBEE45F1FB16DC8007EEE90 /* Optional+Extensions.swift in Sources */,
 				96F503C23352B4B4B41782CC /* ArrayUtilties.swift in Sources */,

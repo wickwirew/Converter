@@ -16,39 +16,54 @@ public enum NameMatching {
 
 
 func possibleNames(from value: String) -> [String] {
+    let w = words(from: value)
     return [
-        withBeginningUnderscrore(value: value),
-        toPascalCasing(value: value),
-        toSnakeCasing(value: value),
-        value.lowercased(),
-        value.uppercased()
+        value,
+        "_\(value)",
+        toCamelCasing(words: w),
+        toPascalCasing(words: w),
+        toSnakeCasing(words: w)
     ]
 }
 
-func withBeginningUnderscrore(value: String) -> String {
-    return "_\(value)"
-}
-
-func toSnakeCasing(value: String) -> String {
-    let uppers = CharacterSet.uppercaseLetters
+func words(from value: String) -> [String] {
+    var word = ""
+    var words = [String]()
     
-    var result = ""
-    for char in value.unicodeScalars {
-        if uppers.contains(char) {
-            let lower = "\(char)".lowercased()
-            result += "_\(lower)"
+    for char in value {
+        if char == "_" {
+            if word != "" {
+                words.append(word)
+                word = ""
+            }
+        } else if char.isUppercase {
+            if word != "" {
+                words.append(word)
+                word = ""
+            }
+            word = "\(char)".lowercased()
         } else {
-            result += "\(char)"
+            word += "\(char)"
         }
     }
-    return result
+    
+    words.append(word)
+    
+    return words
 }
 
-func toPascalCasing(value: String) -> String {
-    if let first = value.unicodeScalars.first, CharacterSet.lowercaseLetters.contains(first) {
-        let cap = "\(first)".capitalized
-        return "\(cap)\(value[value.index(value.startIndex, offsetBy: 1)..<value.endIndex])"
-    } else {
-        return value
-    }
+func toSnakeCasing(words: [String]) -> String {
+    return words.joined(separator: "_")
+}
+
+func toPascalCasing(words: [String]) -> String {
+    return words
+        .map{ $0.capitalizedFirst() }
+        .joined()
+}
+
+func toCamelCasing(words: [String]) -> String {
+    return (0..<words.count)
+        .map{ $0 == 0 ? words[$0] : words[$0].capitalizedFirst() }
+        .joined()
 }

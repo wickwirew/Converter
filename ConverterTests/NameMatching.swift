@@ -13,15 +13,57 @@ import XCTest
 class NameMatching: XCTestCase {
     
     func testToPascal() {
-        let name = "somePropertyName"
-        let pascal = toPascalCasing(value: name)
+        let name = ["some", "property", "name"]
+        let pascal = toPascalCasing(words: name)
         XCTAssert(pascal == "SomePropertyName")
     }
     
     func testToSnake() {
-        let name = "somePropertyName"
-        let snake = toSnakeCasing(value: name)
+        let name = ["some", "property", "name"]
+        let snake = toSnakeCasing(words: name)
         XCTAssert(snake == "some_property_name")
+    }
+    
+    func testToCamelCasing() {
+        let name = ["some", "property", "name"]
+        let snake = toCamelCasing(words: name)
+        XCTAssert(snake == "somePropertyName")
+    }
+    
+    func testWords() {
+        let name = "somePropertyName"
+        let w = words(from: name)
+        XCTAssert(w.count == 3)
+        XCTAssert(w[0] == "some")
+        XCTAssert(w[1] == "property")
+        XCTAssert(w[2] == "name")
+    }
+    
+    func testWords2() {
+        let name = "someProperty_Name"
+        let w = words(from: name)
+        XCTAssert(w.count == 3)
+        XCTAssert(w[0] == "some")
+        XCTAssert(w[1] == "property")
+        XCTAssert(w[2] == "name")
+    }
+    
+    func testWords3() {
+        let name = "some_property_name"
+        let w = words(from: name)
+        XCTAssert(w.count == 3)
+        XCTAssert(w[0] == "some")
+        XCTAssert(w[1] == "property")
+        XCTAssert(w[2] == "name")
+    }
+    
+    func testWords4() {
+        let name = "SomePropertyName"
+        let w = words(from: name)
+        XCTAssert(w.count == 3)
+        XCTAssert(w[0] == "some")
+        XCTAssert(w[1] == "property")
+        XCTAssert(w[2] == "name")
     }
     
 }

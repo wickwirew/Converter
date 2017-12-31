@@ -72,7 +72,7 @@ class ConverterStructTests: XCTestCase {
         
         XCTAssert(mini.make == "Honda")
         XCTAssert(mini.model == "S2000")
-        XCTAssert(mini.engine.horsePower == 245)
+        XCTAssert(mini.engine.horse_power == 245)
     }
     
     func testConversion_Nested_DestinationUntyped() {
@@ -84,7 +84,7 @@ class ConverterStructTests: XCTestCase {
         
         XCTAssert((mini as! CarMinimal).make == "Honda")
         XCTAssert((mini as! CarMinimal).model == "S2000")
-        XCTAssert((mini as! CarMinimal).engine.horsePower == 245)
+        XCTAssert((mini as! CarMinimal).engine.horse_power == 245)
     }
     
     func testConversion_Nested_SourceUntyped() {
@@ -96,7 +96,7 @@ class ConverterStructTests: XCTestCase {
         
         XCTAssert(mini.make == "Honda")
         XCTAssert(mini.model == "S2000")
-        XCTAssert(mini.engine.horsePower == 245)
+        XCTAssert(mini.engine.horse_power == 245)
     }
     
     func testConversion_Nested_Untyped() {
@@ -108,7 +108,7 @@ class ConverterStructTests: XCTestCase {
         
         XCTAssert((mini as! CarMinimal).make == "Honda")
         XCTAssert((mini as! CarMinimal).model == "S2000")
-        XCTAssert((mini as! CarMinimal).engine.horsePower == 245)
+        XCTAssert((mini as! CarMinimal).engine.horse_power == 245)
     }
     
     func testConversionCustomMapping() {
@@ -194,6 +194,6 @@ fileprivate struct Engine {
 }
 
 fileprivate struct EngineMinimal {
-    var horsePower: Int = 0
+    var horse_power: Int = 0
 }
 

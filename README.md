@@ -66,22 +66,7 @@ try createConversion(from: Person.self, to: Teacher.self)
      .ignore(property: "lastName")
 ```
 ## Property Matching
-Converter tries to be intelligent when matching properties on the source to the destination type. It will automatically handle mapping to and from different casing styles, including `camelCasing`, `PascalCasing`, and `snake_casing`. 
-
-So for example `Person` and `PersonPascal` can be automatically converted with no extra work:
-```swift
-struct Person {
-    var id: Int
-    var firstName: String
-    var lastName: String
-}
-
-struct PersonPascal {
-    var Id: Int
-    var FirstName: String
-    var LastName: String
-}
-```
+Converter tries to be intelligent when matching properties on the source to the destination type. It will automatically handle mapping to and from different casing styles, including `camelCasing`, `PascalCasing`, and `snake_casing`. So for example `SomePropertyName` or `some_property_name` can be instantly mapped to and from `somePropertyName`
 
 Private properties sometimes are noted with an underscore at the beginning. Converter will automatically convert them as well. So for example `firstName` can be mapped automatically to `_firstName`. 
 

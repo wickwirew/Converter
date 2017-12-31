@@ -71,7 +71,7 @@ Converter tries to be intelligent when matching properties on the source to the 
 
 Private properties sometimes are noted with an underscore at the beginning. Converter will automatically convert them as well. So for example `firstName` can be mapped automatically to and from `_firstName`. 
 
-If you would like the conversion to match properties only the names are an exact match then when the conversion if created you can specify a `strict` matching policy.
+If you would like the conversion to match properties only when the names are an exact match then when the conversion if created you can specify a `strict` matching policy.
 
 Example:
 ```swift

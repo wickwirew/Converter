@@ -68,7 +68,7 @@ try createConversion(from: Person.self, to: Teacher.self)
 ## Property Matching
 Converter tries to be intelligent when matching properties on the source to the destination type. It will automatically handle mapping to and from different casing styles, including `camelCasing`, `PascalCasing`, and `snake_casing`. So for example `SomePropertyName` or `some_property_name` can be instantly mapped to and from `somePropertyName`
 
-Private properties sometimes are noted with an underscore at the beginning. Converter will automatically convert them as well. So for example `firstName` can be mapped automatically to `_firstName`. 
+Private properties sometimes are noted with an underscore at the beginning. Converter will automatically convert them as well. So for example `firstName` can be mapped automatically to and from `_firstName`. 
 
 If you would like the conversion to match properties only the names are an exact match then when the conversion if created you can specify a `strict` matching policy.
 

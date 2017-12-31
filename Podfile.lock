@@ -1,16 +1,12 @@
 PODS:
-  - Runtime (0.1.0)
+  - Runtime (0.2.0)
 
 DEPENDENCIES:
-  - Runtime (from `../Runtime`)
-
-EXTERNAL SOURCES:
-  Runtime:
-    :path: ../Runtime
+  - Runtime (= 0.2.0)
 
 SPEC CHECKSUMS:
-  Runtime: 60b954e435ae11ba1dd9dcddc9a13113816e2b58
+  Runtime: 3f50aee874a26ec3fc6243e376f39a06c8822277
 
-PODFILE CHECKSUM: 784ed762ff3be7fb8eb9f435f2c659ed0e64dd04
+PODFILE CHECKSUM: cb0aaafd3cc2d85178c23b4775c0e816dc7f135b
 
 COCOAPODS: 1.3.1

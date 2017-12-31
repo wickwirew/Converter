@@ -1,14 +1,19 @@
 ![Converter](https://github.com/wickwirew/Converter/blob/master/Resources/Converter.png)
 
-Converter is an object mapper similar to [AutoMapper](https://github.com/AutoMapper/AutoMapper) for Swift. Converting an object of one type to a different type usually invloves writing a lot of boiler plate code. Converter is an automatic convetion based solution. Still a WIP, but nearing the end.
+## Converter
+Converter is an automatic convetion based object mapper similar to [AutoMapper](https://github.com/AutoMapper/AutoMapper) for Swift.
+
+## Why?
+There comes time where you have two similar models that follow the same naming standard. Whether it's a domain model for your persistance layer, a DTO for an API request, or just a slimmed down version. Mapping the object between types usually results in a lot of boiler plate code manually mapping each property. Converter takes the hassle away and does it automatically base off the naming convention.
 
 ## Example
-There comes time where you have two similar models. Say you have a `User` model. You want to send an API request to update the User but it takes a slimmed down version of `User` called `UserDTO`. Mapping `User` to `UserDTO` would usually involve writing manual code to covert it. With Converter:
+For example we have the `Source` type. We want to be able to convert objects of the `Source` type to `Destination`. So first we have to create the conversion. The conversions are static and only need to be created once, usually when the application is started.
 ```swift
-// Create conversion
-try createConversion(from: User.self, to: UserDTO.self)
-// Convert object
-let dto = try convert(user, to: UserDTO.self)
+try createConversion(from: Source.self, to: Destination.self)
+```
+Once the conversion is created to convert the object:
+```swift
+let newObject = try convert(mySourceObject, to: Destination.self)
 ```
 It's that easy! No boiler plate code to write 🎉.
 

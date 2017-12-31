@@ -83,3 +83,6 @@ To get and set the values dynamically it uses my other library [Runtime](https:/
 
 ## Contributions
 Anyone is welcome to contribute! It is still a work in progress. If there is something you would like implemented either send a pull request or open an issue. Any questions also feel free to open an issue.
+
+## License
+Converter is available under the MIT license. See the LICENSE file for more info.

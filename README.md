@@ -1,4 +1,5 @@
-# Converter
+![Converter](https://github.com/wickwirew/Converter/blob/master/Resources/Converter.png)
+
 Converter is an object mapper similar to [AutoMapper](https://github.com/AutoMapper/AutoMapper) for Swift. Converting an object of one type to a different type usually invloves writing a lot of boiler plate code. Converter is an automatic convetion based solution. Still a WIP, but nearing the end.
 
 ## Example

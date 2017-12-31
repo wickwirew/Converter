@@ -11,6 +11,26 @@ let dto = try convert(user, to: UserDTO.self)
 ```
 It's that easy! No boiler plate code to write 🎉.
 
+## AWS Example
+If you use the AWS Mobile Hub when it generates the domain models for the DynamoDb instance every property is prefixed with an underscore, and the are classes by default. Say you would like to use structs instead and not have the underscore you would normally have to write code to convert the AWS domain model to the struct model. Converter will do this automatically!
+```swift
+class PetDomain: AWSDynamoDBObjectModel, AWSDynamoDBModeling { 
+    var _userId: String?
+    var _name: String?
+    var _age: Int
+}
+
+struct Pet { 
+    var userId: String?
+    var name: String?
+    var age: Int
+}
+
+try createConversion(from: PetDomain.self, to: Pet.self)
+
+let pet = try convert(domain, to: Pet.self)
+```
+
 ## Custom Maps
 Say you have two models that are similar but the property names dont match perfectly. Or even one property in the destination type is a combination of two on the source type. To define a custom map for a property:
 ```swift
@@ -46,7 +66,7 @@ try createConversion(from: Person.self, to: Teacher.self)
      .ignore(property: "lastName")
 ```
 ## Property Matching
-Converter tries to be intelligent when matching properties on the source to the destination type. It will automatically handle mapping to and from diffenert casing styles, including `camelCasing`, `PascalCasing`, and `snake_casing`. 
+Converter tries to be intelligent when matching properties on the source to the destination type. It will automatically handle mapping to and from different casing styles, including `camelCasing`, `PascalCasing`, and `snake_casing`. 
 
 So for example `Person` and `PersonPascal` can be automatically converted with no extra work:
 ```swift

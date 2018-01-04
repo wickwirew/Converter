@@ -6,7 +6,7 @@ target 'Converter' do
   use_frameworks!
 
   # Pods for Converter
-  pod 'Runtime', '0.2.0'
+  pod 'Runtime', '0.3.0'
   
   target 'ConverterTests' do
     inherit! :search_paths

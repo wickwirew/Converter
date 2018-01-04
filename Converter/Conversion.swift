@@ -32,12 +32,12 @@ public func createConversion<S, D>(from source: S.Type, to destination: D.Type, 
     let sourceProperties = try typeInfo(of: source).properties
     let destinationProperties = try typeInfo(of: destination).properties
     
-    var propertyConversions = [String : PropertyConversion]()
+    var propertyConversions = [String : PropertyConversionProtocol]()
     
-    for sourceProperty in sourceProperties {
-        if let destinationProperty = getPropertyFor(name: sourceProperty.name, properties: destinationProperties, matching: matching) {
-            propertyConversions[sourceProperty.name] = propertyConversion(source: sourceProperty, destination: destinationProperty)
-        }
+    let matches = getMatches(sourceProperties, destinationProperties, matching)
+    
+    for match in matches {
+        propertyConversions[match.propertyName] = match.createConversion()
     }
     
     let conversion = ModelConversion<S, D>(conversions: propertyConversions)
@@ -45,18 +45,14 @@ public func createConversion<S, D>(from source: S.Type, to destination: D.Type, 
     return conversion
 }
 
-func propertyConversion(source sourceProperty: PropertyInfo, destination destinationProperty: PropertyInfo) -> PropertyConversion {
-    let typesEqual = isType(sourceProperty.type, equalTo: destinationProperty.type)
-    return PropertyConversion { source, destination in
-        if typesEqual {
-            let value = try sourceProperty.get(from: source)
-            try destinationProperty.set(value: value, on: &destination)
-        } else {
-            let value = try sourceProperty.get(from: source)
-            let converted = try Converter.convert(value, to: destinationProperty.type)
-            try destinationProperty.set(value: converted, on: &destination)
+func getMatches(_ sourceProperties: [PropertyInfo], _ destinationProperties: [PropertyInfo], _ matching: NameMatching) -> [PropertyMatchType] {
+    var matches = [PropertyMatchType]()
+    for sourceProperty in sourceProperties {
+        if let destinationProperty = getPropertyFor(name: sourceProperty.name, properties: destinationProperties, matching: matching) {
+            matches.append(PropertyMatch(source: sourceProperty, destination: destinationProperty))
         }
     }
+    return matches
 }
 
 func getPropertyFor(name: String, properties: [PropertyInfo], matching: NameMatching) -> PropertyInfo? {

@@ -1,12 +1,12 @@
 PODS:
-  - Runtime (0.2.0)
+  - Runtime (0.3.0)
 
 DEPENDENCIES:
-  - Runtime (= 0.2.0)
+  - Runtime (= 0.3.0)
 
 SPEC CHECKSUMS:
-  Runtime: 3f50aee874a26ec3fc6243e376f39a06c8822277
+  Runtime: 4b963a18c9b4dfc1c34bc3045ff936b70c10adfa
 
-PODFILE CHECKSUM: cb0aaafd3cc2d85178c23b4775c0e816dc7f135b
+PODFILE CHECKSUM: 7cf708d4d071e3f2b608d458a8f0f6a40d248e3a
 
 COCOAPODS: 1.3.1

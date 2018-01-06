@@ -105,6 +105,12 @@ let person: Destination = try convert(source)
 print(person.petName) // prints Marley
 ```
 
+## Arrays
+Conversions can be made from an array of a source type to an array of the destination type. Example:
+```swift
+try createConversion(from: Source.self, to: Destination.self)
+let new: [Destination] = try convert(arrayOfSourceObjects)
+```
 
 ## How Does it Work?
 To get and set the values dynamically it uses my other library [Runtime](https://github.com/wickwirew/Runtime). Converter will automatically convert two objects when the property names are the same, and allows for custom mappings. The `createConversion(from: to:)` method defines a path of how it will be converted. Some of the more expensive operations are done once when the conversion is created making the conversion just a wee bit faster.

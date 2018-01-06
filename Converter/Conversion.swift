@@ -47,21 +47,43 @@ public func createConversion<S, D>(from source: S.Type, to destination: D.Type, 
 
 func getMatches(_ sourceProperties: [PropertyInfo], _ destinationProperties: [PropertyInfo], _ matching: NameMatching) -> [PropertyMatchType] {
     var matches = [PropertyMatchType]()
-    for sourceProperty in sourceProperties {
-        if let destinationProperty = getPropertyFor(name: sourceProperty.name, properties: destinationProperties, matching: matching) {
-            matches.append(PropertyMatch(source: sourceProperty, destination: destinationProperty))
+    for destinationProperty in destinationProperties {
+        if let match = getMatch(for: destinationProperty, matching: matching, sourceProperties: sourceProperties) {
+            matches.append(match)
         }
     }
     return matches
 }
 
-func getPropertyFor(name: String, properties: [PropertyInfo], matching: NameMatching) -> PropertyInfo? {
+
+func getMatch(for destination: PropertyInfo, matching: NameMatching, sourceProperties: [PropertyInfo]) -> PropertyMatchType? {
     switch matching {
     case .loose:
-        let possibilities = possibleNames(from: name)
-        return properties.first{possibilities.contains($0.name)}
+        
+        let naming = NamingContext(from: destination.name)
+        
+        if let property = sourceProperties.first(where: {naming.possibilities.contains($0.name)}) {
+            return PropertyMatch(source: property, destination: destination)
+        } else {
+            
+            let nestedPossibilies = naming.nestedPossibilities
+            
+            for (sourceName, nestedPropertyName) in nestedPossibilies {
+                
+                guard let sourceProperty = sourceProperties.first(where: { $0.name == sourceName }),
+                    let info = try? typeInfo(of: sourceProperty.type),
+                    let nestedProperty = try? info.property(named: nestedPropertyName)
+                    else { continue }
+                
+                return NestedPropertyMatch(owner: sourceProperty, sourceProperty: destination, nestedProperty: nestedProperty)
+            }
+            
+            return nil
+        }
     case .strict:
-        return properties.first{$0.name == name}
+        guard let property = sourceProperties.first(where: {$0.name == destination.name})
+            else { return nil }
+        return PropertyMatch(source: property, destination: destination)
     }
 }
 

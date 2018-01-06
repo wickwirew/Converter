@@ -51,7 +51,7 @@ func convertObject(_ object: Any, to destinationType: Any.Type) throws -> Any {
     
     for value in conversion.conversions {
         let c = value.value
-        try c.runConversion(source: &object, destination: &result)
+        try c.run(source: &object, destination: &result)
     }
     
     return result

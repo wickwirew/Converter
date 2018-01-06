@@ -42,6 +42,7 @@ class ComplexStructTests: XCTestCase {
         XCTAssert(mini.comments.count == 2)
         XCTAssert(mini.comments[0].title == "title")
         XCTAssert(mini.comments[1].title == "title")
+        XCTAssert(mini.nestedName == "hey there")
     }
     
     func testArray() throws {
@@ -66,6 +67,7 @@ fileprivate struct Post {
     var body = "body"
     var something: String? = nil
     var comments = [Comment(), Comment()]
+    var nested = Nested(name: "hey there")
 }
 
 
@@ -94,10 +96,15 @@ fileprivate struct PostMinimal {
     var title = ""
     var comments = [CommentMinimal]()
     var something = ""
+    var nestedName = ""
 }
 
 
 fileprivate struct AuthorMinimal {
     var id = 0
     var email = ""
+}
+
+fileprivate struct Nested {
+    var name: String
 }

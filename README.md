@@ -106,7 +106,7 @@ print(person.petName) // prints Marley
 ```
 
 ## Arrays
-Conversions can be made from an array of a source type to an array of the destination type. Example:
+Conversions can be made from an array of a source type to an array of a destination type. There is no need to create an extra conversion for an array, just the type within. Example:
 ```swift
 try createConversion(from: Source.self, to: Destination.self)
 let new: [Destination] = try convert(arrayOfSourceObjects)

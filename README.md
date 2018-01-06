@@ -83,6 +83,29 @@ Example:
 try createConversion(from: Person.self, to: Teacher.self, matching: .strict)
 ```
 
+## Flattening
+Converter also has the ability to flatten out objects, allowing you to automatically pull values out of nested objects with no extra work. For example we have the `Person` type which has a property of type `Pet`. `Pet` objects have a name property. Our destination type would like the pet name to be at the top level. `Person`'s pet property name is `pet` and we would like to flatten out it's `name` property. So by naming our destination property `petName`, Converter will translate that too `pet.name` and grab the value.
+```swift
+struct Pet {
+     var name: String
+}
+
+struct Person {
+    var pet: Nested
+}
+        
+struct FlattenedPerson {
+    var petName: String
+}
+
+try createConversion(from: Person.self, to: FlattenedPerson.self)
+
+let source = Person(nested: Pet(name: "Marley"))
+let converted: Destination = try convert(source)
+print(converted.nestedName) // prints Marley
+```
+
+
 ## How Does it Work?
 To get and set the values dynamically it uses my other library [Runtime](https://github.com/wickwirew/Runtime). Converter will automatically convert two objects when the property names are the same, and allows for custom mappings. The `createConversion(from: to:)` method defines a path of how it will be converted. Some of the more expensive operations are done once when the conversion is created making the conversion just a wee bit faster.
 

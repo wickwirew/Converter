@@ -100,9 +100,9 @@ struct FlattenedPerson {
 
 try createConversion(from: Person.self, to: FlattenedPerson.self)
 
-let source = Person(nested: Pet(name: "Marley"))
-let converted: Destination = try convert(source)
-print(converted.nestedName) // prints Marley
+let source = Person(pet: Pet(name: "Marley"))
+let person: Destination = try convert(source)
+print(person.petName) // prints Marley
 ```
 
 

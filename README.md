@@ -1,7 +1,7 @@
 ![Converter](https://github.com/wickwirew/Converter/blob/master/Resources/Converter.png)
 
 ## Converter
-Converter is an automatic convetion based object mapper similar to [AutoMapper](https://github.com/AutoMapper/AutoMapper) for Swift.
+Converter is an automatic convention based object mapper similar to [AutoMapper](https://github.com/AutoMapper/AutoMapper) for Swift.
 
 ## Why?
 There comes time where you have two models, with similar properties, that follow the same naming standard. Whether it's a domain model for your persistance layer, a DTO for an API request, or just a slimmed down version. Mapping the object between types usually results in a lot of boiler plate code manually mapping each property. Converter takes the hassle away and does it automatically base off the naming convention.

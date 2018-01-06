@@ -91,7 +91,7 @@ struct Pet {
 }
 
 struct Person {
-    var pet: Nested
+    var pet: Pet
 }
         
 struct FlattenedPerson {

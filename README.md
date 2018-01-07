@@ -38,7 +38,7 @@ let pet = try convert(domain, to: Pet.self)
 ```
 
 ## Custom Maps
-Say you have two models that are similar but the property names dont match perfectly. Or even one property in the destination type is a combination of two on the source type. For example we have a `Person` type and a `Teacher` type. `Person` has `firstName` and `lastName` while the `Teacher` object only has `name`. 
+Say you have two models that are similar but the property names don't match perfectly. Or even one property in the destination type is a combination of two on the source type. For example we have a `Person` type and a `Teacher` type. `Person` has `firstName` and `lastName` while the `Teacher` object only has `name`. 
 ```swift
 struct Person {
     var id: Int

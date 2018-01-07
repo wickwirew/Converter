@@ -38,7 +38,7 @@ let pet = try convert(domain, to: Pet.self)
 ```
 
 ## Custom Maps
-Say you have two models that are similar but the property names dont match perfectly. Or even one property in the destination type is a combination of two on the source type. To define a custom map for a property:
+Say you have two models that are similar but the property names dont match perfectly. Or even one property in the destination type is a combination of two on the source type. For example we have a `Person` type and a `Teacher` type. `Person` has `firstName` and `lastName` while the `Teacher` object only has `name`. 
 ```swift
 struct Person {
     var id: Int
@@ -52,14 +52,14 @@ struct Teacher {
     var name: String
     var age: Int
 }
-
-// Choose property from it's key path
+```
+To specify which property to use for the `Teacher.name` property you can choose from a `KeyPath` on the source type.
+```swift
 try createConversion(from: Person.self, to: Teacher.self)
      .for(property: "name", use: \.firstName)
-     
-// OR
-
-// When the coversion runs it will now set the `name` property on teacher to the combination of `firstName` and `lastName`.
+```   
+Or for more flexibility you can use a closure to allow you to use multiple properties on the source object.
+```swift
 try createConversion(from: Person.self, to: Teacher.self)
      .for(property: "name", use: {"\($0.firstName) \($0.lastName)"})
 ```

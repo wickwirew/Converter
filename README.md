@@ -59,11 +59,10 @@ try createConversion(from: Person.self, to: Teacher.self)
      
 // OR
 
-// Closure to allow a combination
+// When the coversion runs it will now set the `name` property on teacher to the combination of `firstName` and `lastName`.
 try createConversion(from: Person.self, to: Teacher.self)
      .for(property: "name", use: {"\($0.firstName) \($0.lastName)"})
 ```
-So when the coversion runs it will now set the `name` property on teacher to the combination of `firstName` and `lastName`.
 
 ## Ignoring Properties
 Say on one conversion you would like to omit one property from being set. Example:

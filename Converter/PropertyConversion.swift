@@ -26,7 +26,7 @@ import Runtime
 
 
 public protocol PropertyConversionProtocol {
-    func runConversion(source: inout Any, destination: inout Any) throws
+    func run(source: inout Any, destination: inout Any) throws
 }
 
 
@@ -34,7 +34,7 @@ public struct PropertyConversion: PropertyConversionProtocol {
     
     let conversion: (inout Any, inout Any) throws -> Void
     
-    public func runConversion(source: inout Any, destination: inout Any) throws {
+    public func run(source: inout Any, destination: inout Any) throws {
         try conversion(&source, &destination)
     }
 }
@@ -50,7 +50,7 @@ public protocol CustomPropertyConversion: PropertyConversionProtocol {
 
 extension CustomPropertyConversion {
     
-    public func runConversion(source: inout Any, destination: inout Any) throws {
+    public func run(source: inout Any, destination: inout Any) throws {
         guard let source = source as? Source else { return }
         let value = try getValue(from: source)
         let info = try typeInfo(of: Destination.self)

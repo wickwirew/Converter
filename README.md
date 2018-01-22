@@ -1,7 +1,7 @@
 ![Converter](https://github.com/wickwirew/Converter/blob/master/Resources/Converter.png)
 
 ## Converter
-Converter is an automatic convetion based object mapper similar to [AutoMapper](https://github.com/AutoMapper/AutoMapper) for Swift.
+Converter is an automatic convention based object mapper similar to [AutoMapper](https://github.com/AutoMapper/AutoMapper) for Swift.
 
 ## Why?
 There comes time where you have two models, with similar properties, that follow the same naming standard. Whether it's a domain model for your persistance layer, a DTO for an API request, or just a slimmed down version. Mapping the object between types usually results in a lot of boiler plate code manually mapping each property. Converter takes the hassle away and does it automatically base off the naming convention.
@@ -38,7 +38,7 @@ let pet = try convert(domain, to: Pet.self)
 ```
 
 ## Custom Maps
-Say you have two models that are similar but the property names dont match perfectly. Or even one property in the destination type is a combination of two on the source type. To define a custom map for a property:
+Say you have two models that are similar but the property names don't match perfectly. Or even one property in the destination type is a combination of two on the source type. For example we have a `Person` type and a `Teacher` type. `Person` has `firstName` and `lastName` while the `Teacher` object only has `name`. 
 ```swift
 struct Person {
     var id: Int
@@ -52,18 +52,17 @@ struct Teacher {
     var name: String
     var age: Int
 }
-
-// Choose property from it's key path
+```
+To specify which property to use for the `Teacher.name` property you can choose from a `KeyPath` on the source type.
+```swift
 try createConversion(from: Person.self, to: Teacher.self)
      .for(property: "name", use: \.firstName)
-     
-// OR
-
-// Closure to allow a combination
+```   
+Or for more flexibility you can use a closure to allow you to use multiple properties on the source object.
+```swift
 try createConversion(from: Person.self, to: Teacher.self)
      .for(property: "name", use: {"\($0.firstName) \($0.lastName)"})
 ```
-So when the coversion runs it will now set the `name` property on teacher to the combination of `firstName` and `lastName`.
 
 ## Ignoring Properties
 Say on one conversion you would like to omit one property from being set. Example:
@@ -81,6 +80,35 @@ If you would like the conversion to match properties only when the names are an 
 Example:
 ```swift
 try createConversion(from: Person.self, to: Teacher.self, matching: .strict)
+```
+
+## Flattening
+Converter also has the ability to flatten out objects, allowing you to automatically pull values out of nested objects with no extra work. For example we have the `Person` type which has a property of type `Pet`. `Pet` objects have a name property. Our destination type would like the pet name to be at the top level. `Person`'s pet property name is `pet` and we would like to flatten out it's `name` property. So by naming our destination property `petName`, Converter will translate that too `pet.name` and grab the value.
+```swift
+struct Pet {
+     var name: String
+}
+
+struct Person {
+    var pet: Pet
+}
+        
+struct FlattenedPerson {
+    var petName: String
+}
+
+try createConversion(from: Person.self, to: FlattenedPerson.self)
+
+let source = Person(pet: Pet(name: "Marley"))
+let person: Destination = try convert(source)
+print(person.petName) // prints Marley
+```
+
+## Arrays
+Conversions can be made from an array of a source type to an array of a destination type. There is no need to create an extra conversion for an array, just the type within. Example:
+```swift
+try createConversion(from: Source.self, to: Destination.self)
+let new: [Destination] = try convert(arrayOfSourceObjects)
 ```
 
 ## How Does it Work?

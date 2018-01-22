@@ -46,7 +46,7 @@ class NameMatching: XCTestCase {
     
     func testWords() {
         let name = "somePropertyName"
-        let w = words(from: name)
+        let w = parseWords(from: name)
         XCTAssert(w.count == 3)
         XCTAssert(w[0] == "some")
         XCTAssert(w[1] == "property")
@@ -55,7 +55,7 @@ class NameMatching: XCTestCase {
     
     func testWords2() {
         let name = "someProperty_Name"
-        let w = words(from: name)
+        let w = parseWords(from: name)
         XCTAssert(w.count == 3)
         XCTAssert(w[0] == "some")
         XCTAssert(w[1] == "property")
@@ -64,7 +64,7 @@ class NameMatching: XCTestCase {
     
     func testWords3() {
         let name = "some_property_name"
-        let w = words(from: name)
+        let w = parseWords(from: name)
         XCTAssert(w.count == 3)
         XCTAssert(w[0] == "some")
         XCTAssert(w[1] == "property")
@@ -73,7 +73,7 @@ class NameMatching: XCTestCase {
     
     func testWords4() {
         let name = "SomePropertyName"
-        let w = words(from: name)
+        let w = parseWords(from: name)
         XCTAssert(w.count == 3)
         XCTAssert(w[0] == "some")
         XCTAssert(w[1] == "property")
@@ -82,7 +82,7 @@ class NameMatching: XCTestCase {
     
     func testWordsSingle() {
         let name = "_id"
-        let w = words(from: name)
+        let w = parseWords(from: name)
         XCTAssert(w.count == 1)
         XCTAssert(w[0] == "id")
     }

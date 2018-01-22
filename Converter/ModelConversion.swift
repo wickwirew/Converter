@@ -30,7 +30,7 @@ public class ModelConversion<S, D>: ModelConversionProtocol {
     
     public var conversions: [String : PropertyConversionProtocol]
     
-    public init(conversions: [String : PropertyConversion]) {
+    public init(conversions: [String : PropertyConversionProtocol]) {
         self.conversions = conversions
     }
     

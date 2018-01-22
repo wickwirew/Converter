@@ -28,18 +28,35 @@ public enum NameMatching {
 }
 
 
-func possibleNames(from value: String) -> [String] {
-    let w = words(from: value)
+struct NamingContext {
+    
+    let possibilities: [String]
+    let words: [String]
+    
+    init(from value: String) {
+        words = parseWords(from: value)
+        possibilities = possibleNames(original: value, words: words)
+    }
+    
+    var nestedPossibilities: [(source: String, property: String)] {
+        let count = words.count
+        return (1..<count)
+            .map { return (source: words[0..<$0].joined().lowercased(),
+                           property: words[$0..<count].joined().lowercased()) }
+    }
+}
+
+func possibleNames(original: String, words: [String]) -> [String] {
     return [
-        value,
-        "_\(value)",
-        toCamelCasing(words: w),
-        toPascalCasing(words: w),
-        toSnakeCasing(words: w)
+        original,
+        "_\(original)",
+        toCamelCasing(words: words),
+        toPascalCasing(words: words),
+        toSnakeCasing(words: words)
     ]
 }
 
-func words(from value: String) -> [String] {
+func parseWords(from value: String) -> [String] {
     var word = ""
     var words = [String]()
     
